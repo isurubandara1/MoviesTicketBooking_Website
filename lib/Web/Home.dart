@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "../Common.dart";
 import 'dart:async';
 
 class Home extends StatelessWidget {
@@ -8,71 +9,9 @@ class Home extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.width * 0.05,
-              color: Colors.black87,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image(
-                    image: AssetImage("assets/logo.png"),
-                    height: MediaQuery.of(context).size.width * 0.05,
-                  ),
-                  SizedBox(width: 10), // Adjust the size as needed
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Home",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Movies",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Show Times",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Buy Tickets",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Contact Us",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 18),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            Navbar(context),
             AutoScrollImages(),
+            footerBar(context),
           ],
         ),
       ),
