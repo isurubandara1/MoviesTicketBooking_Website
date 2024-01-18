@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_ticket_booking_website/Web/cinema_banner.dart';
 import "../Common.dart";
 import 'dart:async';
 
@@ -10,7 +11,11 @@ class Home extends StatelessWidget {
         child: Column(
           children: [
             Navbar(context),
-            AutoScrollImages(),
+            const AutoScrollImages(),
+            SizedBox(
+              height: 40.0,
+            ),
+            CinemaBanner(),
             footerBar(context),
           ],
         ),
@@ -59,7 +64,7 @@ class _AutoScrollImagesState extends State<AutoScrollImages> {
             duration: const Duration(seconds: 2), curve: Curves.ease);
       } else {
         _controller.nextPage(
-            duration: Duration(seconds: 1), curve: Curves.ease);
+            duration: const Duration(seconds: 1), curve: Curves.ease);
       }
     });
   }
@@ -92,7 +97,7 @@ class _AutoScrollImagesState extends State<AutoScrollImages> {
                       padding: const EdgeInsets.all(50),
                       child: Text(
                         imageTexts[index], // Use the corresponding text
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 60,
                           fontWeight: FontWeight.bold,
