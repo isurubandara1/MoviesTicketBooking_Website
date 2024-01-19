@@ -19,11 +19,21 @@ class _PlaceSelectState extends State<PlaceSelect> {
             children: [
               Container(
                 color: Colors.black87,
-                height: MediaQuery.of(context).size.height * 0.4,
+                height: MediaQuery.of(context).size.height * 0.5,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
+                      //Film name
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Film name",
+                              style:
+                                  TextStyle(fontSize: 30, color: Colors.white)),
+                        ],
+                      ),
+
                       // First row for full tickets
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -117,8 +127,7 @@ class _PlaceSelectState extends State<PlaceSelect> {
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.black26,
-                              borderRadius: BorderRadius.circular(
-                                  20), // Adjust the radius here for the curve
+                              borderRadius: BorderRadius.circular(20),
                             ),
                             width: 250,
                             height: 40,
@@ -140,27 +149,238 @@ class _PlaceSelectState extends State<PlaceSelect> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
-                              onPressed: () {}, child: Text("7:30 AM")),
-                          SizedBox(
-                            width: 10,
+                            onPressed: () {},
+                            child: Text(
+                              "7:30 AM",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.red,
+                            ),
                           ),
-                          ElevatedButton(
-                              onPressed: () {}, child: Text("1:30 PM")),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          ElevatedButton(
-                              onPressed: () {}, child: Text("5:30 PM")),
                         ],
                       ),
                     ],
                   ),
                 ),
               ),
+              SizedBox(
+                height: 50,
+              ),
+
+//ODC
+              Column(
+                children: [
+                  Text(
+                    "ODC",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    "( F. Rs.650.00 / H. Rs.410.00 )",
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                color: Colors.grey,
+                height: 5,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: ODCGrid(),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+
+//BALCONY
+              Column(
+                children: [
+                  Text(
+                    "BALCONY",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    "( F. Rs.760.00 / H. Rs.530.00 )",
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                color: Colors.grey,
+                height: 5,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: BalGrid(),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+
+//BOX
+              Column(
+                children: [
+                  Text(
+                    "BOX",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  Text(
+                    "( F. Rs.1760.00 )",
+                    style: TextStyle(fontSize: 12, color: Colors.grey),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                color: Colors.grey,
+                height: 5,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                child: BoxGrid(),
+              ),
+              SizedBox(
+                height: 30,
+              ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+//For ODC
+class ODCGrid extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 30,
+        crossAxisSpacing: 4,
+        mainAxisSpacing: 4,
+      ),
+      itemCount: 80,
+      itemBuilder: (context, index) {
+        String buttonLabel = 'A${index + 1}';
+        return InkWell(
+          onTap: () => print('Button $buttonLabel pressed'),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.blue, // Specify border color
+                width: 1, // Specify border width
+              ),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              buttonLabel,
+              style: TextStyle(fontSize: 10, color: Colors.black),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+//For BALCONY
+class BalGrid extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 30,
+        crossAxisSpacing: 4,
+        mainAxisSpacing: 4,
+      ),
+      itemCount: 50,
+      itemBuilder: (context, index) {
+        String buttonLabel = 'B${index + 1}';
+        return InkWell(
+          onTap: () => print('Button $buttonLabel pressed'),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.blue,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              buttonLabel,
+              style: TextStyle(fontSize: 10, color: Colors.black),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+//For BOX
+class BoxGrid extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 30,
+        crossAxisSpacing: 4,
+        mainAxisSpacing: 4,
+      ),
+      itemCount: 20,
+      itemBuilder: (context, index) {
+        String buttonLabel = 'C${index + 1}';
+        return InkWell(
+          onTap: () => print('Button $buttonLabel pressed'),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.blue,
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(4),
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              buttonLabel,
+              style: TextStyle(fontSize: 10, color: Colors.black),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        );
+      },
     );
   }
 }
