@@ -8,13 +8,13 @@ Widget Navbar(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image(
-          image: AssetImage("assets/logo.png"),
+          image: const AssetImage("assets/logo.png"),
           height: MediaQuery.of(context).size.width * 0.05,
         ),
-        SizedBox(width: 10), // Adjust the size as needed
+        const SizedBox(width: 10), // Adjust the size as needed
         TextButton(
           onPressed: () {},
-          child: Text(
+          child: const Text(
             "Home",
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
@@ -22,7 +22,7 @@ Widget Navbar(BuildContext context) {
         ),
         TextButton(
           onPressed: () {},
-          child: Text(
+          child: const Text(
             "Movies",
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
@@ -30,7 +30,7 @@ Widget Navbar(BuildContext context) {
         ),
         TextButton(
           onPressed: () {},
-          child: Text(
+          child: const Text(
             "Show Times",
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
@@ -38,7 +38,7 @@ Widget Navbar(BuildContext context) {
         ),
         TextButton(
           onPressed: () {},
-          child: Text(
+          child: const Text(
             "Buy Tickets",
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
@@ -46,13 +46,13 @@ Widget Navbar(BuildContext context) {
         ),
         TextButton(
           onPressed: () {},
-          child: Text(
+          child: const Text(
             "Contact Us",
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 60,
         ),
         ElevatedButton(
@@ -61,7 +61,7 @@ Widget Navbar(BuildContext context) {
             primary: Colors.pink, // Background color
             onPrimary: Colors.white, // Text color
           ),
-          child: Text("Buy Tickets"),
+          child: const Text("Buy Tickets"),
         ),
       ],
     ),
@@ -83,10 +83,10 @@ Widget footerBar(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Image(
-                      image: AssetImage("assets/logo.png"),
+                      image: const AssetImage("assets/logo.png"),
                       height: MediaQuery.of(context).size.width * 0.05,
                     ),
-                    Text(
+                    const Text(
                       "EPR FILMS & THEATERS",
                       style: TextStyle(
                           fontSize: 27,
@@ -96,7 +96,7 @@ Widget footerBar(BuildContext context) {
                   ],
                 ),
               ),
-              Text(
+              const Text(
                 "© 2024 EPR Movies. All Rights Reserved.",
                 style: TextStyle(
                     fontSize: 12,
@@ -115,7 +115,7 @@ Widget footerBar(BuildContext context) {
                     children: [
                       TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           "Home",
                           style: TextStyle(
                               color: Colors.white,
@@ -125,7 +125,7 @@ Widget footerBar(BuildContext context) {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           "Movies",
                           style: TextStyle(
                               color: Colors.white,
@@ -135,7 +135,7 @@ Widget footerBar(BuildContext context) {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           "Show Times",
                           style: TextStyle(
                               color: Colors.white,
@@ -145,9 +145,9 @@ Widget footerBar(BuildContext context) {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           "Buy Tickets",
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w400,
                               fontSize: 18),
@@ -155,7 +155,7 @@ Widget footerBar(BuildContext context) {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text(
+                        child: const Text(
                           "Contact Us",
                           style: TextStyle(
                               color: Colors.white,

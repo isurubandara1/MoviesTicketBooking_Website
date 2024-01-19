@@ -19,17 +19,17 @@ class Movies extends StatelessWidget {
               "assets/movies/movies.jpg",
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
 
 //Now Showing
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
+            const Padding(
+              padding: EdgeInsets.only(left: 30),
               child: Text("Now Showing", style: TextStyle(fontSize: 35)),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
 
@@ -42,11 +42,11 @@ class Movies extends StatelessWidget {
                     Image.asset(
                       "assets/movies/m1.jpg",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Captain Miller (TAMIL)"),
-                    SizedBox(
+                    const Text("Captain Miller (TAMIL)"),
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
@@ -55,7 +55,7 @@ class Movies extends StatelessWidget {
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
                       ),
-                      child: Text("Buy Tickets"),
+                      child: const Text("Buy Tickets"),
                     ),
                   ],
                 ),
@@ -64,11 +64,11 @@ class Movies extends StatelessWidget {
                     Image.asset(
                       "assets/movies/m2.jpg",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Merry Christmas (TAMIL)"),
-                    SizedBox(
+                    const Text("Merry Christmas (TAMIL)"),
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
@@ -77,7 +77,7 @@ class Movies extends StatelessWidget {
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
                       ),
-                      child: Text("Buy Tickets"),
+                      child: const Text("Buy Tickets"),
                     ),
                   ],
                 ),
@@ -86,11 +86,11 @@ class Movies extends StatelessWidget {
                     Image.asset(
                       "assets/movies/m3.jpg",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Mission Chapter 1 (TAMIL)"),
-                    SizedBox(
+                    const Text("Mission Chapter 1 (TAMIL)"),
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
@@ -99,14 +99,14 @@ class Movies extends StatelessWidget {
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
                       ),
-                      child: Text("Buy Tickets"),
+                      child: const Text("Buy Tickets"),
                     ),
                   ],
                 ),
               ],
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
 
@@ -119,11 +119,11 @@ class Movies extends StatelessWidget {
                     Image.asset(
                       "assets/movies/m4.jpg",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Merry Christmas (HINDI)"),
-                    SizedBox(
+                    const Text("Merry Christmas (HINDI)"),
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
@@ -132,7 +132,7 @@ class Movies extends StatelessWidget {
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
                       ),
-                      child: Text("Buy Tickets"),
+                      child: const Text("Buy Tickets"),
                     ),
                   ],
                 ),
@@ -141,11 +141,11 @@ class Movies extends StatelessWidget {
                     Image.asset(
                       "assets/movies/m5.jpg",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Captain Miller (TAMIL)"),
-                    SizedBox(
+                    const Text("Captain Miller (TAMIL)"),
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
@@ -154,7 +154,7 @@ class Movies extends StatelessWidget {
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
                       ),
-                      child: Text("Buy Tickets"),
+                      child: const Text("Buy Tickets"),
                     ),
                   ],
                 ),
@@ -163,11 +163,11 @@ class Movies extends StatelessWidget {
                     Image.asset(
                       "assets/movies/m6.jpg",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Villain (විලන්)"),
-                    SizedBox(
+                    const Text("Villain (විලන්)"),
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
@@ -176,14 +176,14 @@ class Movies extends StatelessWidget {
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
                       ),
-                      child: Text("Buy Tickets"),
+                      child: const Text("Buy Tickets"),
                     ),
                   ],
                 ),
               ],
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
 
@@ -196,11 +196,11 @@ class Movies extends StatelessWidget {
                     Image.asset(
                       "assets/movies/m7.jpg",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Thaththa"),
-                    SizedBox(
+                    const Text("Thaththa"),
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
@@ -209,7 +209,7 @@ class Movies extends StatelessWidget {
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
                       ),
-                      child: Text("Buy Tickets"),
+                      child: const Text("Buy Tickets"),
                     ),
                   ],
                 ),
@@ -218,11 +218,11 @@ class Movies extends StatelessWidget {
                     Image.asset(
                       "assets/movies/m8.jpg",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Ape Principal"),
-                    SizedBox(
+                    const Text("Ape Principal"),
+                    const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
@@ -231,23 +231,23 @@ class Movies extends StatelessWidget {
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
                       ),
-                      child: Text("Buy Tickets"),
+                      child: const Text("Buy Tickets"),
                     ),
                   ],
                 ),
               ],
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
 
-            Padding(
-              padding: const EdgeInsets.only(left: 30),
+            const Padding(
+              padding: EdgeInsets.only(left: 30),
               child: Text("Upcoming Movies", style: TextStyle(fontSize: 35)),
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
 
@@ -260,11 +260,11 @@ class Movies extends StatelessWidget {
                     Image.asset(
                       "assets/movies/mu1.jpg",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Lal Salaam"),
-                    SizedBox(
+                    const Text("Lal Salaam"),
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
@@ -274,7 +274,7 @@ class Movies extends StatelessWidget {
                         color: const Color.fromARGB(255, 233, 129, 164),
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "Ticket Not Available",
                           textAlign: TextAlign.center,
@@ -289,11 +289,11 @@ class Movies extends StatelessWidget {
                     Image.asset(
                       "assets/movies/mu2.jpg",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Thangalaan"),
-                    SizedBox(
+                    const Text("Thangalaan"),
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
@@ -303,7 +303,7 @@ class Movies extends StatelessWidget {
                         color: const Color.fromARGB(255, 233, 129, 164),
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "Ticket Not Available",
                           textAlign: TextAlign.center,
@@ -318,11 +318,11 @@ class Movies extends StatelessWidget {
                     Image.asset(
                       "assets/movies/mu3.jpg",
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Text("Kung Fu Panda 4"),
-                    SizedBox(
+                    const Text("Kung Fu Panda 4"),
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
@@ -332,11 +332,12 @@ class Movies extends StatelessWidget {
                         color: const Color.fromARGB(255, 233, 129, 164),
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Text(
                           "Ticket Not Available",
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white, fontSize: 10),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 10),
                         ),
                       ),
                     ),
@@ -345,7 +346,7 @@ class Movies extends StatelessWidget {
               ],
             ),
 
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
 
