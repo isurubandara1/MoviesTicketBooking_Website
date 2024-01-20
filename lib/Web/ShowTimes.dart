@@ -23,7 +23,7 @@ class _ShowTimesState extends State<ShowTimes> {
     }
 
     for (DateTime date in availableDates) {
-      availableTimes[date] = ["10:00 AM", "13:00 PM", "5:00 PM"];
+      availableTimes[date] = ["10:00 AM", "13:00 PM", "17:00 PM"];
     }
   }
 
@@ -218,6 +218,40 @@ class _ShowTimesState extends State<ShowTimes> {
                   },
                 ),
               ),
+            ),
+
+            SizedBox(
+              height: 40,
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(right: 50),
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        primary: Color.fromARGB(255, 21, 39, 139),
+                        side: BorderSide(
+                          color: Color.fromARGB(255, 103, 112, 190),
+                          width: 6.0, // Set the border width
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 50.0,
+                        width: 100.0,
+                        child: Text(
+                          "Next",
+                          style: TextStyle(fontSize: 20, color: Colors.white),
+                        ),
+                      ),
+                    )),
+              ],
             ),
 
             SizedBox(
