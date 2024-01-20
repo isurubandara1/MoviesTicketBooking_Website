@@ -146,7 +146,7 @@ class CinemaBanner extends StatelessWidget {
                   height: 15.0,
                 ),
                 Image.asset(
-                  "assets/theater_15_5e1ea9f7bca33_Sinexpo3D_Kurunegala_logo.jpg",
+                  "assets/Sinexpologo.jpg",
                   width: 1050,
                   alignment: Alignment.topCenter,
                   height: 500,
@@ -222,7 +222,7 @@ class CinemaBanner extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset('assets/parking_icon.jpg'),
+                    Image.asset('assets/park.jpg'),
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Column(
@@ -251,7 +251,7 @@ class CinemaBanner extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset("assets/snack_icon.jpg"),
+                    Image.asset("assets/snack.jpg"),
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Column(
@@ -287,7 +287,7 @@ class CinemaBanner extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset("assets/restaurant_icon.jpg"),
+                    Image.asset("assets/restau.jpg"),
                     Padding(
                       padding: const EdgeInsets.only(left: 20),
                       child: Column(
