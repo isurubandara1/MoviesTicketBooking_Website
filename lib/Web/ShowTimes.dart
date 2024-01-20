@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import "../Common.dart";
 
-class MyTimeButtons extends StatefulWidget {
+class ShowTimes extends StatefulWidget {
   @override
-  _MyTimeButtonsState createState() => _MyTimeButtonsState();
+  _ShowTimesState createState() => _ShowTimesState();
 }
 
-class _MyTimeButtonsState extends State<MyTimeButtons> {
+class _ShowTimesState extends State<ShowTimes> {
   DateTime currentDate = DateTime.now();
   String selectedTime = "";
-  late DateTime selectedDate = DateTime.now(); // Initialize with default value
+  late DateTime selectedDate = DateTime.now();
 
   List<DateTime> availableDates = [];
   Map<DateTime, List<String>> availableTimes = {};
@@ -17,118 +18,22 @@ class _MyTimeButtonsState extends State<MyTimeButtons> {
   void initState() {
     super.initState();
 
-    // Generate available dates (next 7 days)
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 300; i++) {
       availableDates.add(currentDate.add(Duration(days: i)));
     }
 
-    // Example available times for each date
     for (DateTime date in availableDates) {
-      availableTimes[date] = ["10:00 AM", "15:02 PM", "7:00 PM"];
+      availableTimes[date] = ["10:00 AM", "13:00 PM", "5:00 PM"];
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Movie Ticket Booking'),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          // Display available dates
-          Text(
-            'Select Date:',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 10),
-          Container(
-            height: 60,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: availableDates.length,
-              itemBuilder: (context, index) {
-                DateTime date = availableDates[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle date selection
-                      onDateSelected(date);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                          if (date == selectedDate) {
-                            // Color when the button is selected
-                            return Colors.blueAccent;
-                          } else if (date == currentDate) {
-                            // Color when the button is today's date
-                            return Colors.blue;
-                          }
-                          return Colors.grey; // Default color for other dates
-                        },
-                      ),
-                    ),
-                    child: Text("${date.day}/${date.month}"),
-                  ),
-                );
-              },
-            ),
-          ),
-          SizedBox(height: 20),
-
-          // Display available times
-          Text(
-            'Select Time:',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 10),
-          Container(
-            height: 60,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: availableTimes[currentDate]?.length ?? 0,
-              itemBuilder: (context, index) {
-                String time = availableTimes[currentDate]?[index] ?? "";
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Handle time selection
-                      onTimeSelected(time);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                          if (time == selectedTime) {
-                            // Color when the button is selected
-                            return Colors.greenAccent;
-                          }
-                          return Colors.green;
-                        },
-                      ),
-                    ),
-                    child: Text(time),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-    );
   }
 
   void onDateSelected(DateTime selectedDate) {
     setState(() {
       currentDate = selectedDate;
       this.selectedDate = selectedDate;
-      selectedTime = ""; // Reset selected time when date changes
+      selectedTime = "";
     });
 
-    // Print selected date to the terminal
     print('Selected Date: ${selectedDate.day}/${selectedDate.month}');
   }
 
@@ -148,12 +53,182 @@ class _MyTimeButtonsState extends State<MyTimeButtons> {
       setState(() {
         selectedTime = time;
       });
-      // Handle time selection
       print('Selected Time: $time');
       print(DateTime.now());
     } else {
-      // Display an error or do nothing for invalid selection
       print('Invalid Time Selection');
     }
+  }
+
+  void onLeftArrowPressed() {
+    setState(() {
+      currentDate = currentDate.subtract(Duration(days: 1));
+    });
+  }
+
+  void onRightArrowPressed() {
+    setState(() {
+      currentDate = currentDate.add(Duration(days: 1));
+    });
+  }
+
+  void scrollLeft() {
+    setState(() {
+      currentDate = currentDate.subtract(Duration(days: 1));
+    });
+  }
+
+  void scrollRight() {
+    setState(() {
+      currentDate = currentDate.add(Duration(days: 1));
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            //navBar
+            Navbar(context),
+
+            //Image
+            Image.asset(
+              "assets/ShowTimes.jpg",
+              width: double.infinity,
+              height: MediaQuery.of(context).size.width * 0.2,
+              fit: BoxFit.cover,
+            ),
+
+            SizedBox(
+              height: 30,
+            ),
+
+            // Date selection with scroll buttons
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_left),
+                  onPressed: scrollLeft,
+                ),
+                const SizedBox(width: 20),
+                const Text(
+                  'Select Date: (Select here your Date)',
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(width: 20),
+                IconButton(
+                  icon: Icon(Icons.arrow_right),
+                  onPressed: scrollRight,
+                ),
+              ],
+            ),
+
+            SizedBox(height: 30),
+
+            // Display available dates
+            Container(
+              height: 60,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: availableDates.length,
+                itemBuilder: (context, index) {
+                  DateTime date = availableDates[index];
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Handle date selection
+                        onDateSelected(date);
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.resolveWith<Color>(
+                          (Set<MaterialState> states) {
+                            if (date == selectedDate) {
+                              // Color when the button is selected
+                              return Colors.pinkAccent;
+                            } else if (date == currentDate) {
+                              // Color when the button is today's date
+                              return Colors.pinkAccent;
+                            }
+                            return Colors.grey; // Default color for other dates
+                          },
+                        ),
+                      ),
+                      child: Text(
+                        "${date.day}/${date.month}",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+
+            SizedBox(
+              height: 30,
+            ),
+
+            // Display available times
+            Text(
+              'Select Time: (Select here your available time)',
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 30),
+            Padding(
+              padding: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.35),
+              child: Container(
+                height: 50,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: availableTimes[currentDate]?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    String time = availableTimes[currentDate]?[index] ?? "";
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Handle time selection
+                          onTimeSelected(time);
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                              if (time == selectedTime) {
+                                // Color when the button is selected
+                                return Colors.pinkAccent;
+                              }
+                              return Colors.grey;
+                            },
+                          ),
+                        ),
+                        child: Text(
+                          time,
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+
+            SizedBox(
+              height: 20,
+            ),
+
+            //footer
+            footerBar(context),
+          ],
+        ),
+      ),
+    );
   }
 }
