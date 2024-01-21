@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import "../Common.dart";
+import '../Common.dart';
 
 class ShowTimes extends StatefulWidget {
+  final String movieName;
+  const ShowTimes({required this.movieName});
+
   @override
   _ShowTimesState createState() => _ShowTimesState();
 }
@@ -18,12 +21,36 @@ class _ShowTimesState extends State<ShowTimes> {
   void initState() {
     super.initState();
 
-    for (int i = 0; i < 300; i++) {
+    for (int i = 0; i < 400; i++) {
       availableDates.add(currentDate.add(Duration(days: i)));
     }
 
     for (DateTime date in availableDates) {
-      availableTimes[date] = ["10:00 AM", "13:00 PM", "17:00 PM"];
+      if (widget.movieName == "Captain Miller (TAMIL)" &&
+          (date.month >= 1 && date.month <= 3)) {
+        availableTimes[date] = ["7:00 AM", "13:00 PM"];
+      } else if (widget.movieName == "Merry Christmas (TAMIL)" &&
+          (date.month >= 1 && date.month <= 3)) {
+        availableTimes[date] = ["9.30 AM", "17:00 PM"];
+      } else if (widget.movieName == "Mission Chapter 1 (TAMIL)" &&
+          (date.month >= 4 && date.month <= 5)) {
+        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
+      } else if (widget.movieName == "Merry Christmas (HINDI)" &&
+          (date.month >= 5 && date.month <= 6)) {
+        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
+      } else if (widget.movieName == "Raider (Sinhala)" &&
+          (date.month >= 7 && date.month <= 8)) {
+        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
+      } else if (widget.movieName == "Vilan (Sinhala)" &&
+          (date.month >= 9 && date.month <= 10)) {
+        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
+      } else if (widget.movieName == "Thaththa (SINHALA)" &&
+          (date.month >= 11 && date.month <= 12)) {
+        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
+      } else if (widget.movieName == "Ape Principal (SINHALA)" &&
+          date.year >= 2025) {
+        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
+      }
     }
   }
 
@@ -34,7 +61,7 @@ class _ShowTimesState extends State<ShowTimes> {
       selectedTime = "";
     });
 
-    print('Selected Date: ${selectedDate.day}/${selectedDate.month}');
+    print('Selected Date: ${selectedDate.month}/${selectedDate.day}');
   }
 
   void onTimeSelected(String time) {
@@ -105,6 +132,20 @@ class _ShowTimesState extends State<ShowTimes> {
               height: 30,
             ),
 
+            //Movie name
+            Text(
+              "........... ${widget.movieName} ...........",
+              style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.brown,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.italic),
+            ),
+
+            SizedBox(
+              height: 30,
+            ),
+
             // Date selection with scroll buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -159,7 +200,7 @@ class _ShowTimesState extends State<ShowTimes> {
                         ),
                       ),
                       child: Text(
-                        "${date.day}/${date.month}",
+                        "${date.year} / ${date.month} / ${date.day}",
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
@@ -224,33 +265,45 @@ class _ShowTimesState extends State<ShowTimes> {
               height: 40,
             ),
 
+            // Display availability message
+            Text(
+              'Your film is available from ${selectedDate.day}/${selectedDate.month}',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+
+            SizedBox(
+              height: 20,
+            ),
+
+            // Next button
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Padding(
-                    padding: const EdgeInsets.only(right: 50),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        primary: Color.fromARGB(255, 21, 39, 139),
-                        side: BorderSide(
-                          color: Color.fromARGB(255, 103, 112, 190),
-                          width: 6.0, // Set the border width
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
+                  padding: const EdgeInsets.only(right: 50),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      primary: Color.fromARGB(255, 21, 39, 139),
+                      side: BorderSide(
+                        color: Color.fromARGB(255, 103, 112, 190),
+                        width: 6.0, // Set the border width
                       ),
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 50.0,
-                        width: 100.0,
-                        child: Text(
-                          "Next",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
                       ),
-                    )),
+                    ),
+                    child: Container(
+                      alignment: Alignment.center,
+                      height: 50.0,
+                      width: 100.0,
+                      child: Text(
+                        'Next',
+                        style: TextStyle(fontSize: 20, color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
 
@@ -258,7 +311,7 @@ class _ShowTimesState extends State<ShowTimes> {
               height: 20,
             ),
 
-            //footer
+            // Footer
             footerBar(context),
           ],
         ),

@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
+import 'package:movies_ticket_booking_website/Web/ShowTimes.dart';
 import '../Common.dart';
 
 class Movies extends StatelessWidget {
-  const Movies({super.key});
+  final name;
+  const Movies({this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,14 @@ class Movies extends StatelessWidget {
                       height: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShowTimes(
+                                  movieName: "Captain Miller (TAMIL)")),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
@@ -72,7 +81,14 @@ class Movies extends StatelessWidget {
                       height: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShowTimes(
+                                  movieName: "Merry Christmas (TAMIL)")),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
@@ -94,7 +110,14 @@ class Movies extends StatelessWidget {
                       height: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShowTimes(
+                                  movieName: "Mission Chapter 1 (TAMIL)")),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
@@ -127,7 +150,14 @@ class Movies extends StatelessWidget {
                       height: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShowTimes(
+                                  movieName: "Merry Christmas (HINDI)")),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
@@ -144,12 +174,19 @@ class Movies extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text("Captain Miller (TAMIL)"),
+                    const Text("Raider (SINHALA)"),
                     const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ShowTimes(movieName: "Raider (SINHALA)")),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
@@ -166,12 +203,19 @@ class Movies extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text("Villain (විලන්)"),
+                    const Text("Vilan (SINHALA)"),
                     const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ShowTimes(movieName: "Vilan (SINHALA)")),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
@@ -199,12 +243,19 @@ class Movies extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text("Thaththa"),
+                    const Text("Thaththa (SINHALA)"),
                     const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ShowTimes(movieName: "Thaththa (SINHALA)")),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color
@@ -221,12 +272,19 @@ class Movies extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text("Ape Principal"),
+                    const Text("Ape Principal (SINHALA)"),
                     const SizedBox(
                       height: 10,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ShowTimes(
+                                  movieName: "Ape Principal (SINHALA)")),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.pink, // Background color
                         onPrimary: Colors.white, // Text color

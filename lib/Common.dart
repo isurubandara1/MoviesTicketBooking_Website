@@ -1,4 +1,7 @@
 import "package:flutter/material.dart";
+import "package:movies_ticket_booking_website/Web/Home.dart";
+import "package:movies_ticket_booking_website/Web/Movies.dart";
+import "package:movies_ticket_booking_website/Web/ShowTimes.dart";
 
 Widget Navbar(BuildContext context) {
   return Container(
@@ -13,7 +16,12 @@ Widget Navbar(BuildContext context) {
         ),
         const SizedBox(width: 10), // Adjust the size as needed
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Home()),
+            );
+          },
           child: const Text(
             "Home",
             style: TextStyle(
@@ -21,7 +29,12 @@ Widget Navbar(BuildContext context) {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Movies()),
+            );
+          },
           child: const Text(
             "Movies",
             style: TextStyle(
@@ -29,7 +42,12 @@ Widget Navbar(BuildContext context) {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ShowTimes(movieName: "")),
+            );
+          },
           child: const Text(
             "Show Times",
             style: TextStyle(
@@ -37,7 +55,12 @@ Widget Navbar(BuildContext context) {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Movies()),
+            );
+          },
           child: const Text(
             "Buy Tickets",
             style: TextStyle(
@@ -45,7 +68,12 @@ Widget Navbar(BuildContext context) {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => ()),
+            // );
+          },
           child: const Text(
             "Contact Us",
             style: TextStyle(
@@ -56,7 +84,12 @@ Widget Navbar(BuildContext context) {
           width: 60,
         ),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Movies()),
+            );
+          },
           style: ElevatedButton.styleFrom(
             primary: Colors.pink, // Background color
             onPrimary: Colors.white, // Text color
@@ -114,7 +147,12 @@ Widget footerBar(BuildContext context) {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Home()),
+                          );
+                        },
                         child: const Text(
                           "Home",
                           style: TextStyle(
@@ -124,7 +162,12 @@ Widget footerBar(BuildContext context) {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Movies()),
+                          );
+                        },
                         child: const Text(
                           "Movies",
                           style: TextStyle(
@@ -134,7 +177,13 @@ Widget footerBar(BuildContext context) {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ShowTimes(movieName: "")),
+                          );
+                        },
                         child: const Text(
                           "Show Times",
                           style: TextStyle(
@@ -144,7 +193,12 @@ Widget footerBar(BuildContext context) {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Movies()),
+                          );
+                        },
                         child: const Text(
                           "Buy Tickets",
                           style: const TextStyle(
