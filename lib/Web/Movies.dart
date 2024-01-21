@@ -4,7 +4,7 @@ import '../Common.dart';
 
 class Movies extends StatelessWidget {
   final name;
-  const Movies({this.name});
+  const Movies({this.name, required String movieName});
 
   @override
   Widget build(BuildContext context) {

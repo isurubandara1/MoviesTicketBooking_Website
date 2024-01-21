@@ -12,7 +12,7 @@ class ShowTimes extends StatefulWidget {
 class _ShowTimesState extends State<ShowTimes> {
   DateTime currentDate = DateTime.now();
   String selectedTime = "";
-  late DateTime selectedDate = DateTime.now();
+  DateTime selectedDate = DateTime.now();
 
   List<DateTime> availableDates = [];
   Map<DateTime, List<String>> availableTimes = {};
@@ -26,30 +26,22 @@ class _ShowTimesState extends State<ShowTimes> {
     }
 
     for (DateTime date in availableDates) {
-      if (widget.movieName == "Captain Miller (TAMIL)" &&
-          (date.month >= 1 && date.month <= 3)) {
-        availableTimes[date] = ["7:00 AM", "13:00 PM"];
-      } else if (widget.movieName == "Merry Christmas (TAMIL)" &&
-          (date.month >= 1 && date.month <= 3)) {
-        availableTimes[date] = ["9.30 AM", "17:00 PM"];
-      } else if (widget.movieName == "Mission Chapter 1 (TAMIL)" &&
-          (date.month >= 4 && date.month <= 5)) {
-        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
-      } else if (widget.movieName == "Merry Christmas (HINDI)" &&
-          (date.month >= 5 && date.month <= 6)) {
-        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
-      } else if (widget.movieName == "Raider (Sinhala)" &&
-          (date.month >= 7 && date.month <= 8)) {
-        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
-      } else if (widget.movieName == "Vilan (Sinhala)" &&
-          (date.month >= 9 && date.month <= 10)) {
-        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
-      } else if (widget.movieName == "Thaththa (SINHALA)" &&
-          (date.month >= 11 && date.month <= 12)) {
-        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
-      } else if (widget.movieName == "Ape Principal (SINHALA)" &&
-          date.year >= 2025) {
-        availableTimes[date] = ["11:00 AM", "1:00 PM", "1:20 PM"];
+      if (widget.movieName == "Captain Miller (TAMIL)") {
+        availableTimes[date] = ["7:00 AM", "1:00 PM"];
+      } else if (widget.movieName == "Merry Christmas (TAMIL)") {
+        availableTimes[date] = ["10:00 AM", "3:30 PM"];
+      } else if (widget.movieName == "Mission Chapter 1 (TAMIL)") {
+        availableTimes[date] = ["7:00 AM", "1:00 PM"];
+      } else if (widget.movieName == "Merry Christmas (HINDI)") {
+        availableTimes[date] = ["10:00 AM", "6:00 PM"];
+      } else if (widget.movieName == "Raider (SINHALA)") {
+        availableTimes[date] = ["7:00 AM", "3:30 PM"];
+      } else if (widget.movieName == "Vilan (SINHALA)") {
+        availableTimes[date] = ["10:00 AM", "3:30 PM"];
+      } else if (widget.movieName == "Thaththa (SINHALA)") {
+        availableTimes[date] = ["7:00 AM", "3:30 PM"];
+      } else if (widget.movieName == "Ape Principal (SINHALA)") {
+        availableTimes[date] = ["1:00 PM", "6:30 PM"];
       }
     }
   }
@@ -124,7 +116,7 @@ class _ShowTimesState extends State<ShowTimes> {
             Image.asset(
               "assets/ShowTimes.jpg",
               width: double.infinity,
-              height: MediaQuery.of(context).size.width * 0.2,
+              height: MediaQuery.of(context).size.width * 0.1,
               fit: BoxFit.cover,
             ),
 
@@ -222,7 +214,8 @@ class _ShowTimesState extends State<ShowTimes> {
             SizedBox(height: 30),
             Padding(
               padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.35),
+                left: MediaQuery.of(context).size.width * 0.4,
+              ),
               child: Container(
                 height: 50,
                 child: ListView.builder(
@@ -232,27 +225,32 @@ class _ShowTimesState extends State<ShowTimes> {
                     String time = availableTimes[currentDate]?[index] ?? "";
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // Handle time selection
-                          onTimeSelected(time);
-                        },
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.resolveWith<Color>(
-                            (Set<MaterialState> states) {
-                              if (time == selectedTime) {
-                                // Color when the button is selected
-                                return Colors.pinkAccent;
-                              }
-                              return Colors.grey;
-                            },
+                      child: Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Handle time selection
+                            onTimeSelected(time);
+                          },
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.resolveWith<Color>(
+                              (Set<MaterialState> states) {
+                                if (time == selectedTime) {
+                                  // Color when the button is selected
+                                  return Colors.pinkAccent;
+                                }
+                                return Colors.grey;
+                              },
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          time,
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                          child: Center(
+                            child: Text(
+                              time,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
                       ),
                     );
@@ -263,16 +261,6 @@ class _ShowTimesState extends State<ShowTimes> {
 
             SizedBox(
               height: 40,
-            ),
-
-            // Display availability message
-            Text(
-              'Your film is available from ${selectedDate.day}/${selectedDate.month}',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-
-            SizedBox(
-              height: 20,
             ),
 
             // Next button

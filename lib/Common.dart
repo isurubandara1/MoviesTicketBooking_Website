@@ -3,6 +3,8 @@ import "package:movies_ticket_booking_website/Web/Home.dart";
 import "package:movies_ticket_booking_website/Web/Movies.dart";
 import "package:movies_ticket_booking_website/Web/ShowTimes.dart";
 
+import "Web/ViewDetails.dart";
+
 Widget Navbar(BuildContext context) {
   return Container(
     height: MediaQuery.of(context).size.width * 0.05,
@@ -32,7 +34,10 @@ Widget Navbar(BuildContext context) {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Movies()),
+              MaterialPageRoute(
+                  builder: (context) => Movies(
+                        movieName: '',
+                      )),
             );
           },
           child: const Text(
@@ -45,11 +50,11 @@ Widget Navbar(BuildContext context) {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ShowTimes(movieName: "")),
+              MaterialPageRoute(builder: (context) => ViewDetails()),
             );
           },
           child: const Text(
-            "Show Times",
+            "View Details",
             style: TextStyle(
                 color: Colors.white, fontWeight: FontWeight.w400, fontSize: 18),
           ),
@@ -58,7 +63,10 @@ Widget Navbar(BuildContext context) {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Movies()),
+              MaterialPageRoute(
+                  builder: (context) => Movies(
+                        movieName: '',
+                      )),
             );
           },
           child: const Text(
@@ -87,7 +95,10 @@ Widget Navbar(BuildContext context) {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Movies()),
+              MaterialPageRoute(
+                  builder: (context) => Movies(
+                        movieName: '',
+                      )),
             );
           },
           style: ElevatedButton.styleFrom(
@@ -165,7 +176,10 @@ Widget footerBar(BuildContext context) {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Movies()),
+                            MaterialPageRoute(
+                                builder: (context) => Movies(
+                                      movieName: '',
+                                    )),
                           );
                         },
                         child: const Text(
@@ -181,11 +195,11 @@ Widget footerBar(BuildContext context) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ShowTimes(movieName: "")),
+                                builder: (context) => ViewDetails()),
                           );
                         },
                         child: const Text(
-                          "Show Times",
+                          "View Details",
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w400,
@@ -196,7 +210,10 @@ Widget footerBar(BuildContext context) {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Movies()),
+                            MaterialPageRoute(
+                                builder: (context) => Movies(
+                                      movieName: '',
+                                    )),
                           );
                         },
                         child: const Text(
