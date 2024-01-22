@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_ticket_booking_website/Web/PlaceSelect.dart';
 import '../Common.dart';
 
 class ShowTimes extends StatefulWidget {
@@ -17,6 +18,8 @@ class _ShowTimesState extends State<ShowTimes> {
   List<DateTime> availableDates = [];
   Map<DateTime, List<String>> availableTimes = {};
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   void initState() {
     super.initState();
@@ -27,21 +30,21 @@ class _ShowTimesState extends State<ShowTimes> {
 
     for (DateTime date in availableDates) {
       if (widget.movieName == "Captain Miller (TAMIL)") {
-        availableTimes[date] = ["7:00 AM", "1:00 PM"];
+        availableTimes[date] = ["7:00 AM", "13:00 PM"];
       } else if (widget.movieName == "Merry Christmas (TAMIL)") {
-        availableTimes[date] = ["10:00 AM", "3:30 PM"];
+        availableTimes[date] = ["10:00 AM", "15:30 PM"];
       } else if (widget.movieName == "Mission Chapter 1 (TAMIL)") {
-        availableTimes[date] = ["7:00 AM", "1:00 PM"];
+        availableTimes[date] = ["7:00 AM", "13:00 PM"];
       } else if (widget.movieName == "Merry Christmas (HINDI)") {
-        availableTimes[date] = ["10:00 AM", "6:00 PM"];
+        availableTimes[date] = ["10:00 AM", "18:00 PM"];
       } else if (widget.movieName == "Raider (SINHALA)") {
-        availableTimes[date] = ["7:00 AM", "3:30 PM"];
+        availableTimes[date] = ["7:00 AM", "13:00 PM"];
       } else if (widget.movieName == "Vilan (SINHALA)") {
-        availableTimes[date] = ["10:00 AM", "3:30 PM"];
+        availableTimes[date] = ["10:00 AM", "15:30 PM"];
       } else if (widget.movieName == "Thaththa (SINHALA)") {
-        availableTimes[date] = ["7:00 AM", "3:30 PM"];
+        availableTimes[date] = ["7:00 AM", "13:00 PM"];
       } else if (widget.movieName == "Ape Principal (SINHALA)") {
-        availableTimes[date] = ["1:00 PM", "6:30 PM"];
+        availableTimes[date] = ["1:00 PM", "18:30 PM"];
       }
     }
   }
@@ -75,6 +78,7 @@ class _ShowTimesState extends State<ShowTimes> {
       print('Selected Time: $time');
       print(DateTime.now());
     } else {
+      showSnackBar('This time is expired, Select another time');
       print('Invalid Time Selection');
     }
   }
@@ -103,9 +107,29 @@ class _ShowTimesState extends State<ShowTimes> {
     });
   }
 
+  void showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Center(
+          child: Text(
+            message,
+            style: TextStyle(
+              fontSize: 16.0,
+              color: Colors.white,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+        ),
+        duration: Duration(seconds: 3),
+        backgroundColor: const Color.fromARGB(255, 201, 76, 67),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -270,7 +294,12 @@ class _ShowTimesState extends State<ShowTimes> {
                 Padding(
                   padding: const EdgeInsets.only(right: 50),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => PlaceSelect()),
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(255, 21, 39, 139),
                       side: BorderSide(
