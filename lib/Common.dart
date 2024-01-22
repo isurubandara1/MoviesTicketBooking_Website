@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:movies_ticket_booking_website/Web/Contact.dart";
 import "package:movies_ticket_booking_website/Web/Home.dart";
 import "package:movies_ticket_booking_website/Web/Movies.dart";
 import "package:movies_ticket_booking_website/Web/ShowTimes.dart";
