@@ -78,10 +78,10 @@ Widget Navbar(BuildContext context) {
         ),
         TextButton(
           onPressed: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => ()),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Contact()),
+            );
           },
           child: const Text(
             "Contact Us",
@@ -226,7 +226,12 @@ Widget footerBar(BuildContext context) {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Contact()),
+                          );
+                        },
                         child: const Text(
                           "Contact Us",
                           style: TextStyle(

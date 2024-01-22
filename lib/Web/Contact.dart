@@ -65,7 +65,7 @@ class Contact extends StatelessWidget {
 
             // Form
             Padding(
-              padding: const EdgeInsets.all(50.0),
+              padding: EdgeInsets.only(left: 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -88,23 +88,42 @@ class Contact extends StatelessWidget {
 
             // Buttons
             Padding(
-              padding: const EdgeInsets.only(left: 50.0),
-              child: Row(
-                children: [
-                  HoverButton(
-                    label: 'Reset',
-                    backgroundColor: Colors.grey,
-                    hoverColor: Colors.grey.shade800, // Dark grey on hover
-                  ),
-                  SizedBox(width: 10),
-                  HoverButton(
-                    label: 'Send',
-                    backgroundColor: Colors.red,
-                    hoverColor: Colors.red.shade800, // Dark red on hover
-                  ),
-                ],
-              ),
-            ),
+                padding: const EdgeInsets.only(left: 80.0),
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add your reset button logic here
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.grey,
+                        onPrimary: Colors.grey.shade800,
+                        fixedSize:
+                            Size(100, 40), // Adjust width and height as needed
+                      ),
+                      child: Text(
+                        'Reset',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Add your send button logic here
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.red,
+                        onPrimary: Colors.red.shade800,
+                        fixedSize:
+                            Size(100, 40), // Adjust width and height as needed
+                      ),
+                      child: Text(
+                        'Send',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ],
+                )),
 
             SizedBox(
               height: 20,
