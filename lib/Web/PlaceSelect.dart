@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 
 class PlaceSelect extends StatefulWidget {
+  final String selectedTime;
+  final String filmName;
+
+  const PlaceSelect({required this.selectedTime, required this.filmName});
+
   @override
   _PlaceSelectState createState() => _PlaceSelectState();
 }
 
 class _PlaceSelectState extends State<PlaceSelect> {
-  int? selectedFullTicket; // Variable for selected full ticket count
-  int? selectedHalfTicket; // Variable for selected half ticket count
+  int? selectedFullTicket;
+  int? selectedHalfTicket;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +29,14 @@ class _PlaceSelectState extends State<PlaceSelect> {
                   padding: const EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
-                      //Film name
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("Film name",
+                          Text(widget.filmName,
                               style:
                                   TextStyle(fontSize: 30, color: Colors.white)),
                         ],
                       ),
-
-                      // First row for full tickets
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -63,10 +65,10 @@ class _PlaceSelectState extends State<PlaceSelect> {
                                       },
                                       items:
                                           List<DropdownMenuItem<int>>.generate(
-                                        10,
+                                        21,
                                         (int index) => DropdownMenuItem<int>(
-                                          value: index + 1,
-                                          child: Text((index + 1).toString()),
+                                          value: index,
+                                          child: Text((index).toString()),
                                         ),
                                       ),
                                     ),
@@ -76,7 +78,6 @@ class _PlaceSelectState extends State<PlaceSelect> {
                             ),
                           ),
                           SizedBox(width: 30),
-                          // Second column for half tickets
                           Expanded(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -102,10 +103,10 @@ class _PlaceSelectState extends State<PlaceSelect> {
                                       },
                                       items:
                                           List<DropdownMenuItem<int>>.generate(
-                                        10,
+                                        21,
                                         (int index) => DropdownMenuItem<int>(
-                                          value: index + 1,
-                                          child: Text((index + 1).toString()),
+                                          value: index,
+                                          child: Text((index).toString()),
                                         ),
                                       ),
                                     ),
@@ -119,8 +120,6 @@ class _PlaceSelectState extends State<PlaceSelect> {
                       SizedBox(
                         height: 20,
                       ),
-
-                      // Second row
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -133,25 +132,22 @@ class _PlaceSelectState extends State<PlaceSelect> {
                             height: 40,
                             child: Center(
                                 child: Text(
-                              "Tickets count = 5",
+                              "Tickets count = ${(selectedFullTicket ?? 0) + (selectedHalfTicket ?? 0)}",
                               style: TextStyle(color: Colors.white),
                             )),
                           ),
                         ],
                       ),
-
                       SizedBox(
                         height: 20,
                       ),
-
-                      // Third row
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: _handleButtonPress,
                             child: Text(
-                              "7:30 AM",
+                              "${widget.selectedTime}",
                               style: TextStyle(color: Colors.white),
                             ),
                             style: ElevatedButton.styleFrom(
@@ -160,6 +156,21 @@ class _PlaceSelectState extends State<PlaceSelect> {
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.7,
+                        ),
+                        child: Text(
+                          "Price = 0",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontStyle: FontStyle.italic),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -167,8 +178,6 @@ class _PlaceSelectState extends State<PlaceSelect> {
               SizedBox(
                 height: 50,
               ),
-
-//ODC
               Column(
                 children: [
                   Text(
@@ -193,13 +202,14 @@ class _PlaceSelectState extends State<PlaceSelect> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
-                child: ODCGrid(),
+                child: ODCGrid(
+                  selectedFullTicket: selectedFullTicket,
+                  selectedHalfTicket: selectedHalfTicket,
+                ),
               ),
               SizedBox(
                 height: 50,
               ),
-
-//BALCONY
               Column(
                 children: [
                   Text(
@@ -224,13 +234,14 @@ class _PlaceSelectState extends State<PlaceSelect> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
-                child: BalGrid(),
+                child: BalGrid(
+                  selectedFullTicket: selectedFullTicket,
+                  selectedHalfTicket: selectedHalfTicket,
+                ),
               ),
               SizedBox(
                 height: 50,
               ),
-
-//BOX
               Column(
                 children: [
                   Text(
@@ -255,7 +266,10 @@ class _PlaceSelectState extends State<PlaceSelect> {
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20),
-                child: BoxGrid(),
+                child: BoxGrid(
+                  selectedFullTicket: selectedFullTicket,
+                  selectedHalfTicket: selectedHalfTicket,
+                ),
               ),
               SizedBox(
                 height: 30,
@@ -266,10 +280,49 @@ class _PlaceSelectState extends State<PlaceSelect> {
       ),
     );
   }
+
+  void _handleButtonPress() {
+    int totalTickets = (selectedFullTicket ?? 0) + (selectedHalfTicket ?? 0);
+
+    if (totalTickets > 0) {
+      // Navigate to the next screen or perform your action here
+      print("Button pressed with ticket count: $totalTickets");
+    } else {
+      // Show a message indicating that at least one ticket should be selected
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Select Tickets"),
+            content: Text("Please select at least one ticket."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 }
 
-//For ODC
-class ODCGrid extends StatelessWidget {
+class ODCGrid extends StatefulWidget {
+  final int? selectedFullTicket;
+  final int? selectedHalfTicket;
+
+  ODCGrid({this.selectedFullTicket, this.selectedHalfTicket});
+
+  @override
+  _ODCGridState createState() => _ODCGridState();
+}
+
+class _ODCGridState extends State<ODCGrid> {
+  Set<String> selectedButtonLabels = Set();
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -283,13 +336,18 @@ class ODCGrid extends StatelessWidget {
       itemCount: 80,
       itemBuilder: (context, index) {
         String buttonLabel = 'A${index + 1}';
-        return InkWell(
-          onTap: () => print('Button $buttonLabel pressed'),
+        bool isSelected = selectedButtonLabels.contains(buttonLabel);
+
+        return GestureDetector(
+          onTap: () {
+            _handleGridItemPress(buttonLabel);
+          },
           child: Container(
             decoration: BoxDecoration(
+              color: isSelected ? Colors.green : Colors.grey,
               border: Border.all(
-                color: Colors.blue, // Specify border color
-                width: 1, // Specify border width
+                color: Colors.grey,
+                width: 1,
               ),
               borderRadius: BorderRadius.circular(4),
             ),
@@ -305,10 +363,63 @@ class ODCGrid extends StatelessWidget {
       },
     );
   }
+
+  void _handleGridItemPress(String buttonLabel) {
+    int totalTickets =
+        (widget.selectedFullTicket ?? 0) + (widget.selectedHalfTicket ?? 0);
+
+    if (totalTickets > selectedButtonLabels.length) {
+      setState(() {
+        if (selectedButtonLabels.contains(buttonLabel)) {
+          selectedButtonLabels.remove(buttonLabel);
+        } else {
+          selectedButtonLabels.add(buttonLabel);
+        }
+      });
+      print('Button $buttonLabel pressed');
+    } else if (selectedButtonLabels.contains(buttonLabel)) {
+      // Toggle the selection if the button is already selected
+      setState(() {
+        selectedButtonLabels.remove(buttonLabel);
+      });
+      print('Button $buttonLabel unselected');
+    } else {
+      // Show a message indicating that the user can't select more buttons
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Select Tickets"),
+            content: Text(
+                "You can't select more buttons than the total number of tickets."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 }
 
-//For BALCONY
-class BalGrid extends StatelessWidget {
+class BalGrid extends StatefulWidget {
+  final int? selectedFullTicket;
+  final int? selectedHalfTicket;
+
+  BalGrid({this.selectedFullTicket, this.selectedHalfTicket});
+
+  @override
+  _BalGridState createState() => _BalGridState();
+}
+
+class _BalGridState extends State<BalGrid> {
+  Set<String> selectedButtonLabels = Set();
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -322,12 +433,17 @@ class BalGrid extends StatelessWidget {
       itemCount: 50,
       itemBuilder: (context, index) {
         String buttonLabel = 'B${index + 1}';
-        return InkWell(
-          onTap: () => print('Button $buttonLabel pressed'),
+        bool isSelected = selectedButtonLabels.contains(buttonLabel);
+
+        return GestureDetector(
+          onTap: () {
+            _handleGridItemPress(buttonLabel);
+          },
           child: Container(
             decoration: BoxDecoration(
+              color: isSelected ? Colors.green : Colors.grey,
               border: Border.all(
-                color: Colors.blue,
+                color: Colors.grey,
                 width: 1,
               ),
               borderRadius: BorderRadius.circular(4),
@@ -344,10 +460,63 @@ class BalGrid extends StatelessWidget {
       },
     );
   }
+
+  void _handleGridItemPress(String buttonLabel) {
+    int totalTickets =
+        (widget.selectedFullTicket ?? 0) + (widget.selectedHalfTicket ?? 0);
+
+    if (totalTickets > selectedButtonLabels.length) {
+      setState(() {
+        if (selectedButtonLabels.contains(buttonLabel)) {
+          selectedButtonLabels.remove(buttonLabel);
+        } else {
+          selectedButtonLabels.add(buttonLabel);
+        }
+      });
+      print('Button $buttonLabel pressed');
+    } else if (selectedButtonLabels.contains(buttonLabel)) {
+      // Toggle the selection if the button is already selected
+      setState(() {
+        selectedButtonLabels.remove(buttonLabel);
+      });
+      print('Button $buttonLabel unselected');
+    } else {
+      // Show a message indicating that the user can't select more buttons
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Select Tickets"),
+            content: Text(
+                "You can't select more buttons than the total number of tickets."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
 }
 
-//For BOX
-class BoxGrid extends StatelessWidget {
+class BoxGrid extends StatefulWidget {
+  final int? selectedFullTicket;
+  final int? selectedHalfTicket;
+
+  BoxGrid({this.selectedFullTicket, this.selectedHalfTicket});
+
+  @override
+  _BoxGridState createState() => _BoxGridState();
+}
+
+class _BoxGridState extends State<BoxGrid> {
+  Set<String> selectedButtonLabels = Set();
+
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
@@ -361,12 +530,17 @@ class BoxGrid extends StatelessWidget {
       itemCount: 20,
       itemBuilder: (context, index) {
         String buttonLabel = 'C${index + 1}';
-        return InkWell(
-          onTap: () => print('Button $buttonLabel pressed'),
+        bool isSelected = selectedButtonLabels.contains(buttonLabel);
+
+        return GestureDetector(
+          onTap: () {
+            _handleGridItemPress(buttonLabel);
+          },
           child: Container(
             decoration: BoxDecoration(
+              color: isSelected ? Colors.green : Colors.grey,
               border: Border.all(
-                color: Colors.blue,
+                color: Colors.grey,
                 width: 1,
               ),
               borderRadius: BorderRadius.circular(4),
@@ -382,5 +556,47 @@ class BoxGrid extends StatelessWidget {
         );
       },
     );
+  }
+
+// Common method for all sections
+  void _handleGridItemPress(String buttonLabel) {
+    int totalTickets =
+        (widget.selectedFullTicket ?? 0) + (widget.selectedHalfTicket ?? 0);
+
+    if (totalTickets > selectedButtonLabels.length) {
+      setState(() {
+        if (selectedButtonLabels.contains(buttonLabel)) {
+          selectedButtonLabels.remove(buttonLabel);
+        } else {
+          selectedButtonLabels.add(buttonLabel);
+        }
+      });
+      print('Button $buttonLabel pressed');
+    } else if (selectedButtonLabels.contains(buttonLabel)) {
+      // Toggle the selection if the button is already selected
+      setState(() {
+        selectedButtonLabels.remove(buttonLabel);
+      });
+      print('Button $buttonLabel unselected');
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Select Tickets"),
+            content: Text(
+                "You can't select more buttons than the total number of tickets."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

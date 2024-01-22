@@ -83,30 +83,6 @@ class _ShowTimesState extends State<ShowTimes> {
     }
   }
 
-  void onLeftArrowPressed() {
-    setState(() {
-      currentDate = currentDate.subtract(Duration(days: 1));
-    });
-  }
-
-  void onRightArrowPressed() {
-    setState(() {
-      currentDate = currentDate.add(Duration(days: 1));
-    });
-  }
-
-  void scrollLeft() {
-    setState(() {
-      currentDate = currentDate.subtract(Duration(days: 1));
-    });
-  }
-
-  void scrollRight() {
-    setState(() {
-      currentDate = currentDate.add(Duration(days: 1));
-    });
-  }
-
   void showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -120,8 +96,8 @@ class _ShowTimesState extends State<ShowTimes> {
             ),
           ),
         ),
-        duration: Duration(seconds: 3),
-        backgroundColor: const Color.fromARGB(255, 201, 76, 67),
+        duration: Duration(seconds: 1),
+        backgroundColor: Colors.red,
       ),
     );
   }
@@ -166,20 +142,11 @@ class _ShowTimesState extends State<ShowTimes> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  icon: Icon(Icons.arrow_left),
-                  onPressed: scrollLeft,
-                ),
-                const SizedBox(width: 20),
                 const Text(
                   'Select Date: (Select here your Date)',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(width: 20),
-                IconButton(
-                  icon: Icon(Icons.arrow_right),
-                  onPressed: scrollRight,
-                ),
               ],
             ),
 
@@ -295,10 +262,20 @@ class _ShowTimesState extends State<ShowTimes> {
                   padding: const EdgeInsets.only(right: 50),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => PlaceSelect()),
-                      );
+                      if (selectedTime.isNotEmpty) {
+                        // Time is selected, navigate to the next page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PlaceSelect(
+                                selectedTime: selectedTime,
+                                filmName: widget.movieName),
+                          ),
+                        );
+                      } else {
+                        // No time selected, show a message
+                        showSnackBar('Select time before proceeding');
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(255, 21, 39, 139),
