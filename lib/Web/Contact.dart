@@ -1,8 +1,22 @@
 import 'package:flutter/material.dart';
 import '../Common.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Contact extends StatelessWidget {
+class Contact extends StatefulWidget {
   const Contact({Key? key}) : super(key: key);
+
+  @override
+  _ContactState createState() => _ContactState();
+}
+
+class _ContactState extends State<Contact> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController messagesController = TextEditingController();
+
+  final CollectionReference contactCollection =
+      FirebaseFirestore.instance.collection('contacts');
 
   @override
   Widget build(BuildContext context) {
@@ -11,19 +25,9 @@ class Contact extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // NavBar
             Navbar(context),
-
-            // Main image
-            Image.asset(
-              "assets/movies/movies.jpg",
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-
-            // Contact Information
+            Image.asset("assets/movies/movies.jpg"),
+            SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.all(50.0),
               child: Column(
@@ -31,10 +35,7 @@ class Contact extends StatelessWidget {
                 children: [
                   Text(
                     'Contact EAP Films & Theatres',
-                    style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 20),
                   Text(
@@ -54,208 +55,151 @@ class Contact extends StatelessWidget {
                   SizedBox(height: 30),
                   Text(
                     'If you wish to contact us via email, please fill in the following form, and we will get in touch with you at the earliest.',
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
-
-            // Form
             Padding(
-              padding: EdgeInsets.only(left: 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20),
-                  FormFieldLabel(label: 'Name'),
-                  RoundedInputField(fontSize: 14),
-                  SizedBox(height: 10),
-                  FormFieldLabel(label: 'Phone Number'),
-                  RoundedInputField(fontSize: 14),
-                  SizedBox(height: 10),
-                  FormFieldLabel(label: 'Email Address'),
-                  RoundedInputField(fontSize: 14),
-                  SizedBox(height: 10),
-                  FormFieldLabel(label: 'Message'),
-                  RoundedInputField(fontSize: 14, maxLines: null),
-                  SizedBox(height: 20),
-                ],
+              padding: EdgeInsets.symmetric(horizontal: 50),
+              child: TextField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Name',
+                  hintText: 'Enter Your Name',
+                ),
               ),
             ),
-
-            // Buttons
+            SizedBox(height: 20),
             Padding(
-                padding: const EdgeInsets.only(left: 80.0),
-                child: Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        // Add your reset button logic here
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.grey,
-                        onPrimary: Colors.grey.shade800,
-                        fixedSize:
-                            Size(100, 40), // Adjust width and height as needed
-                      ),
-                      child: Text(
-                        'Reset',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Add your send button logic here
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
-                        onPrimary: Colors.red.shade800,
-                        fixedSize:
-                            Size(100, 40), // Adjust width and height as needed
-                      ),
-                      child: Text(
-                        'Send',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                )),
-
-            SizedBox(
-              height: 20,
+              padding: EdgeInsets.symmetric(horizontal: 50),
+              child: TextField(
+                controller: phoneController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Phone Number',
+                  hintText: 'Enter Phone Number',
+                ),
+              ),
             ),
-
-            // Footer
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50),
+              child: TextField(
+                controller: emailController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Email',
+                  hintText: 'Enter Your Email',
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 50),
+              child: TextField(
+                maxLines: 4,
+                controller: messagesController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Messages',
+                  hintText: 'Type Your messages',
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_validateForm()) {
+                      await _saveContactToFirestore();
+                    }
+                  },
+                  child: Text("Submit"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.pink,
+                    onPrimary: Colors.white,
+                    fixedSize: Size(100, 50),
+                  ),
+                ),
+                SizedBox(width: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    _clearTextFields();
+                  },
+                  child: Text("Clear"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
+                    onPrimary: Colors.white,
+                    fixedSize: Size(100, 50),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20),
             footerBar(context),
           ],
         ),
       ),
     );
   }
-}
 
-class RoundedInputField extends StatefulWidget {
-  final int? maxLines;
-  final double? fontSize;
+  bool _validateForm() {
+    if (nameController.text.isEmpty ||
+        phoneController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        messagesController.text.isEmpty) {
+      _showSnackBar("Fill all the text fields before submit", false);
+      return false;
+    }
+    return true;
+  }
 
-  const RoundedInputField({
-    Key? key,
-    this.maxLines = 1,
-    this.fontSize,
-  }) : super(key: key);
+  void _showSnackBar(String message, bool isSuccess) {
+    Color backgroundColor = isSuccess ? Colors.green : Colors.red;
 
-  @override
-  _RoundedInputFieldState createState() => _RoundedInputFieldState();
-}
-
-class _RoundedInputFieldState extends State<RoundedInputField> {
-  bool hasFocus = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
-      padding: EdgeInsets.all(10),
-      width: 650,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(
-          color: hasFocus ? Colors.blue : Colors.grey,
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
         ),
-      ),
-      child: TextFormField(
-        style: TextStyle(fontSize: widget.fontSize),
-        decoration: InputDecoration(
-          border: InputBorder.none,
-        ),
-        maxLines: widget.maxLines,
-        onTap: () {
-          setState(() {
-            hasFocus = true;
-          });
-        },
-        onFieldSubmitted: (value) {
-          setState(() {
-            hasFocus = false;
-          });
-        },
-        onEditingComplete: () {
-          setState(() {
-            hasFocus = false;
-          });
-        },
+        duration: Duration(seconds: 2),
+        backgroundColor: backgroundColor,
       ),
     );
   }
-}
 
-class FormFieldLabel extends StatelessWidget {
-  final String label;
+  Future<void> _saveContactToFirestore() async {
+    String name = nameController.text.trim();
+    String phone = phoneController.text.trim();
+    String email = emailController.text.trim();
+    String message = messagesController.text.trim();
 
-  const FormFieldLabel({
-    Key? key,
-    required this.label,
-  }) : super(key: key);
+    Map<String, dynamic> contactData = {
+      'name': name,
+      'phone': phone,
+      'email': email,
+      'message': message,
+    };
 
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      label,
-      style: TextStyle(
-        fontSize: 14,
-        color: Colors.black,
-      ),
-    );
+    try {
+      await contactCollection.add(contactData);
+      _clearTextFields();
+      _showSnackBar('Contact details added to Firestore successfully!', true);
+    } catch (error) {
+      _showSnackBar('Error adding contact details to Firestore: $error', false);
+    }
   }
-}
 
-class HoverButton extends StatefulWidget {
-  final String label;
-  final Color backgroundColor;
-  final Color hoverColor;
-
-  const HoverButton({
-    Key? key,
-    required this.label,
-    required this.backgroundColor,
-    required this.hoverColor,
-  }) : super(key: key);
-
-  @override
-  _HoverButtonState createState() => _HoverButtonState();
-}
-
-class _HoverButtonState extends State<HoverButton> {
-  bool isHovered = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (_) => setState(() => isHovered = true),
-      onExit: (_) => setState(() => isHovered = false),
-      child: Container(
-        width: 80,
-        height: 60,
-        decoration: BoxDecoration(
-          color: isHovered ? widget.hoverColor : widget.backgroundColor,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        child: TextButton(
-          onPressed: () {},
-          child: Text(
-            widget.label,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-          ),
-        ),
-      ),
-    );
+  void _clearTextFields() {
+    nameController.clear();
+    phoneController.clear();
+    emailController.clear();
+    messagesController.clear();
   }
 }
