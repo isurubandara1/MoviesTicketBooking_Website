@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "../Common.dart";
 import 'dart:async';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -145,6 +146,15 @@ class CinemaBanner extends StatelessWidget {
                 SizedBox(
                   height: 15.0,
                 ),
+                // Container(
+                //   alignment: Alignment.center,
+                //   padding: EdgeInsets.all(16),
+                //   child: CardField(
+                //     onCardChanged: (card) {
+                //       print(card);
+                //     },
+                //   ),
+                // ),
                 Image.asset(
                   "assets/Sinexpologo.jpg",
                   width: 1050,
