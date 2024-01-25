@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'ConfirmBooking.dart';
 import 'Home.dart';
 
 class PlaceSelect extends StatefulWidget {
   final String selectedTime;
+  final DateTime selectedDate;
   final String filmName;
 
-  const PlaceSelect({required this.selectedTime, required this.filmName});
+  const PlaceSelect(
+      {required this.selectedTime,
+      required this.selectedDate,
+      required this.filmName});
 
   @override
   _PlaceSelectState createState() => _PlaceSelectState();
@@ -17,14 +22,14 @@ class _PlaceSelectState extends State<PlaceSelect> {
   int price = 0;
   Set<String> selectedButtonLabels = Set();
 
-// Calculate the price based on the selected tickets
+  // Calculate the price based on the selected tickets
   void viewPrice() {
     setState(() {
       price = (selectedFullTicket ?? 0) * 300 + (selectedHalfTicket ?? 0) * 150;
     });
   }
 
-//Next buttons logic
+  // Next buttons logic
   bool _handleButtonPress() {
     int totalTickets = (selectedFullTicket ?? 0) + (selectedHalfTicket ?? 0);
     return selectedButtonLabels.length == totalTickets;
@@ -142,7 +147,7 @@ class _PlaceSelectState extends State<PlaceSelect> {
                         height: 20,
                       ),
 
-                      // Tickets count.........
+                      // Tickets count
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -165,18 +170,30 @@ class _PlaceSelectState extends State<PlaceSelect> {
                         height: 20,
                       ),
 
-                      // Time.............
+                      // Time
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           ElevatedButton(
-                            onPressed: _handleButtonPress,
+                            onPressed: () {},
                             child: Text(
-                              "${widget.selectedTime}",
+                              "On ${widget.selectedDate.year} / ${widget.selectedDate.month} / ${widget.selectedDate.day}",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            style:
+                                ElevatedButton.styleFrom(primary: Colors.green),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text(
+                              "At ${widget.selectedTime}",
                               style: TextStyle(color: Colors.white),
                             ),
                             style: ElevatedButton.styleFrom(
-                              primary: Colors.red,
+                              primary: Colors.green,
                             ),
                           ),
                         ],
@@ -185,7 +202,7 @@ class _PlaceSelectState extends State<PlaceSelect> {
                         height: 10,
                       ),
 
-                      // Price............
+                      // Price
                       Padding(
                         padding: EdgeInsets.only(
                           left: MediaQuery.of(context).size.width * 0.7,
@@ -206,7 +223,7 @@ class _PlaceSelectState extends State<PlaceSelect> {
                 height: 50,
               ),
 
-              // Sheet..............
+              // Sheet
               Column(
                 children: [
                   Text(
@@ -241,7 +258,7 @@ class _PlaceSelectState extends State<PlaceSelect> {
                 height: 10,
               ),
 
-              //Next button.........
+              // Next button
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
@@ -256,7 +273,20 @@ class _PlaceSelectState extends State<PlaceSelect> {
                         if (allButtonsSelected && totalTickets > 0) {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Home()),
+                            MaterialPageRoute(
+                              builder: (context) => ConfirmBooking(
+                                filmName: widget.filmName,
+                                fullTicket: selectedFullTicket ?? 0,
+                                halfTicket: selectedHalfTicket ?? 0,
+                                ticketCount: (selectedFullTicket ?? 0) +
+                                    (selectedHalfTicket ?? 0),
+                                time: widget.selectedTime,
+                                price: price,
+                                date:
+                                    "${widget.selectedDate.year} / ${widget.selectedDate.month} /${widget.selectedDate.day}",
+                                selectedButtonLabels: selectedButtonLabels,
+                              ),
+                            ),
                           );
                         } else {
                           showDialog(
@@ -265,7 +295,7 @@ class _PlaceSelectState extends State<PlaceSelect> {
                               return AlertDialog(
                                 title: Text("Select Tickets"),
                                 content: Text(
-                                    "Please select at least one ticket or choose your preferred seats according to ticket count."),
+                                    "Please select at least one ticket or choose your preferred seats according to the ticket count."),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -284,9 +314,8 @@ class _PlaceSelectState extends State<PlaceSelect> {
                         style: TextStyle(color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.red, // Change the button color
-                        minimumSize:
-                            Size(200, 50), // Set the minimum size of the button
+                        primary: Colors.red,
+                        minimumSize: Size(200, 50),
                       ),
                     ),
                   ],
