@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movies_ticket_booking_website/Web/PlaceSelect.dart';
 import '../Common.dart';
+import 'package:intl/intl.dart';
 
 class ShowTimes extends StatefulWidget {
   final String movieName;
@@ -269,6 +270,7 @@ class _ShowTimesState extends State<ShowTimes> {
                           MaterialPageRoute(
                             builder: (context) => PlaceSelect(
                                 selectedTime: selectedTime,
+                                selectedDate: selectedDate,
                                 filmName: widget.movieName),
                           ),
                         );

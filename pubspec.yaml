@@ -41,6 +41,9 @@ dependencies:
   equatable: ^2.0.5
   firebase_core: ^2.24.2
   cloud_firestore: ^4.14.0
+  intl: ^0.19.0
+  stripe_sdk: ^5.0.0
+ 
 
 dev_dependencies:
   flutter_test:

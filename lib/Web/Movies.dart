@@ -281,8 +281,9 @@ class Movies extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => ShowTimes(
-                                  movieName: "Ape Principal (SINHALA)")),
+                            builder: (context) =>
+                                ShowTimes(movieName: "Ape Principal (SINHALA)"),
+                          ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
