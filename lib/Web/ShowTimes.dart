@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_ticket_booking_website/Web/PlaceSelect.dart';
 import '../Common.dart';
-import 'package:intl/intl.dart';
 
 class ShowTimes extends StatefulWidget {
   final String movieName;
