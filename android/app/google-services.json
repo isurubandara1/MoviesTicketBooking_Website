@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "560762092474",
+    "project_id": "movietickets-3ddad",
+    "storage_bucket": "movietickets-3ddad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560762092474:android:6682c89e92b78726e0bb83",
+        "android_client_info": {
+          "package_name": "com.example.movies_ticket_booking_website"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzA8Jwxmv9XE1QAQg57vmD-nCDBDO_ccA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
