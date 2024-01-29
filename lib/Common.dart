@@ -196,7 +196,9 @@ Widget footerBar(BuildContext context) {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ViewDetails()),
+                                builder: (context) => Movies(
+                                      movieName: '',
+                                    )),
                           );
                         },
                         child: const Text(
