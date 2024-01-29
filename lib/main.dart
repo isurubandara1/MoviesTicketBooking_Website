@@ -7,10 +7,10 @@ import "package:movies_ticket_booking_website/Web/Movies.dart";
 import "Web/ConfirmBooking.dart";
 import 'Web/PlaceSelect.dart';
 import "Web/ShowTimes.dart";
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: FirebaseOptions(
