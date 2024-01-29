@@ -1,4 +1,3 @@
-<
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:movies_ticket_booking_website/Common.dart';
@@ -231,4 +230,3 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
     );
   }
 }
->>>>>>> IsuruDev
