@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:movies_ticket_booking_website/Common.dart';
+import 'package:movies_ticket_booking_website/Web/Downlod.dart';
 import 'package:movies_ticket_booking_website/Web/Home.dart';
 
 class ConfirmBooking extends StatefulWidget {
@@ -57,9 +58,21 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
       try {
         await _firestore.collection('bookings').add(bookingData);
         _showSnackbar("Details submitted successfully", isSuccess: true);
+        // ignore: use_build_context_synchronously
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Home()),
+          MaterialPageRoute(
+            builder: (context) => Download(
+              filmName: widget.filmName,
+              fullTicket: widget.fullTicket ?? 0,
+              halfTicket: widget.halfTicket ?? 0,
+              ticketCount: widget.ticketCount,
+              time: widget.time,
+              price: widget.price,
+              date: widget.date,
+              selectedButtonLabels: widget.selectedButtonLabels.toSet(),
+            ),
+          ),
         );
 
         nameController.clear();
@@ -218,7 +231,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: Text("Pay & Download recipt"),
+              child: Text("Pay"),
             ),
             SizedBox(
               height: 20,
