@@ -1,10 +1,12 @@
 import "package:firebase_core/firebase_core.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
+import "package:movies_ticket_booking_website/AdminLogin.dart";
 import "package:movies_ticket_booking_website/Web/Contact.dart";
 import "package:movies_ticket_booking_website/Web/Home.dart";
 import "package:movies_ticket_booking_website/Web/Movies.dart";
 import "Web/ConfirmBooking.dart";
+import "Web/Payment.dart";
 import 'Web/PlaceSelect.dart';
 import "Web/ShowTimes.dart";
 import 'package:flutter_stripe/flutter_stripe.dart';

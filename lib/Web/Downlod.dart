@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:qr_flutter/qr_flutter.dart';
 
 class Download extends StatefulWidget {
   final String filmName;
@@ -47,16 +48,43 @@ class _DownloadState extends State<Download> {
   Future<void> generateAndDownloadPDF() async {
     final pdf = pw.Document();
 
+    // Create a string with the details to be encoded in the QR code
+    final detailsString = "Movie Name: ${widget.filmName}\n" +
+        "Date: ${widget.date}\n" +
+        "Time: ${widget.time}\n" +
+        "Selected Seats: ${widget.selectedButtonLabels.join(', ')}\n" +
+        "Total Amount Paid: Rs.${widget.price}/=";
+
+    // Add QR code to the PDF with the details string
+    final qrCodeImage = await QrPainter(
+      data: detailsString,
+      version: QrVersions.auto,
+      color: Colors.black,
+      emptyColor: Colors.white,
+    ).toImageData(300);
+
     pdf.addPage(
       pw.Page(
         build: (context) => pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            pw.Container(
-              alignment: pw.Alignment.center,
-              child: pw.Image(pw.MemoryImage(_imageData)),
+            pw.Row(
+              children: [
+                pw.Container(
+                  alignment: pw.Alignment.center,
+                  child: pw.Image(pw.MemoryImage(_imageData), width: 100),
+                ),
+                pw.Text(
+                  "EPR FILMS & THEATRES",
+                  style: pw.TextStyle(
+                    color: PdfColor.fromInt(Colors.brown.value),
+                    fontStyle: pw.FontStyle.italic,
+                    fontSize: 20,
+                  ),
+                ),
+              ],
             ),
-            pw.SizedBox(height: 10),
+            pw.SizedBox(height: 30),
             pw.Text(
               "Movie Ticket Invoice",
               style: pw.TextStyle(
@@ -77,6 +105,15 @@ class _DownloadState extends State<Download> {
                 "Selected Seats: ${widget.selectedButtonLabels.join(', ')}"),
             pw.SizedBox(height: 20),
             pw.Text("Total Amount Paid: Rs.${widget.price}/="),
+            pw.SizedBox(height: 20),
+            // Add QR Code to the PDF
+            pw.Container(
+              alignment: pw.Alignment.center,
+              child: pw.Image(
+                  pw.MemoryImage(
+                      Uint8List.fromList(qrCodeImage!.buffer.asUint8List())),
+                  width: 100),
+            ),
           ],
         ),
       ),

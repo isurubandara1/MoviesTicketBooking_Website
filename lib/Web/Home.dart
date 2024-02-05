@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movies_ticket_booking_website/AdminLogin.dart';
 import "../Common.dart";
 import 'dart:async';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -16,6 +17,35 @@ class Home extends StatelessWidget {
               height: 40.0,
             ),
             CinemaBanner(),
+
+            //Admin Button
+            Padding(
+              padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width - 200,
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdminLogin(),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: const Color.fromARGB(255, 206, 26, 13),
+                  onPrimary: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text("Admin only"),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             footerBar(context),
           ],
         ),
@@ -324,7 +354,7 @@ class CinemaBanner extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

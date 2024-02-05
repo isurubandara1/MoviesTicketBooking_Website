@@ -35,6 +35,9 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
+  // Add a boolean flag to track payment status
+  bool paymentMade = false;
+
   Future<void> _submitDetails() async {
     if (nameController.text.isEmpty ||
         phoneController.text.isEmpty ||
