@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'ConfirmBooking.dart';
 import 'Home.dart';
 
@@ -17,6 +18,7 @@ class PlaceSelect extends StatefulWidget {
 }
 
 class _PlaceSelectState extends State<PlaceSelect> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   int? selectedFullTicket;
   int? selectedHalfTicket;
   int price = 0;
@@ -27,6 +29,65 @@ class _PlaceSelectState extends State<PlaceSelect> {
     setState(() {
       price = (selectedFullTicket ?? 0) * 300 + (selectedHalfTicket ?? 0) * 150;
     });
+  }
+
+  // Function to check if a sheet is already booked
+  Future<bool> isSheetBooked(String sheetLabel) async {
+    DocumentSnapshot sheetDoc =
+        await _firestore.collection('booked_sheets').doc(sheetLabel).get();
+    return sheetDoc.exists;
+  }
+
+  // Function to book a sheet
+  Future<void> bookSheet(String sheetLabel) async {
+    bool isAlreadyBooked = await isSheetBooked(sheetLabel);
+
+    if (!isAlreadyBooked) {
+      // Update Firestore to mark the sheet as booked
+      await _firestore.collection('booked_sheets').doc(sheetLabel).set({
+        'isBooked': true,
+        // Add other relevant data
+      });
+
+      setState(() {
+        selectedButtonLabels.add(sheetLabel);
+      });
+
+      viewPrice(); // Update the price when sheets are selected
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Sheet Already Booked"),
+            content: Text("This sheet has already been booked."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("OK"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  // Modify _handleGridItemPress to use bookSheet function
+  void _handleGridItemPress(String buttonLabel, int totalTickets) async {
+    // Check if the sheet is already booked
+    if (!selectedButtonLabels.contains(buttonLabel)) {
+      // Book the sheet if not already booked
+      await bookSheet(buttonLabel);
+    } else {
+      // Handle unselecting a sheet (if needed)
+      setState(() {
+        selectedButtonLabels.remove(buttonLabel);
+      });
+      print('Button $buttonLabel unselected');
+    }
   }
 
   // Next buttons logic

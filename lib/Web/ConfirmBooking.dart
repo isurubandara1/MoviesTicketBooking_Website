@@ -34,8 +34,6 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-
-  // Add a boolean flag to track payment status
   bool paymentMade = false;
 
   Future<void> _submitDetails() async {
@@ -44,24 +42,61 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
         emailController.text.isEmpty) {
       _showSnackbar("Fill all the text fields");
     } else {
-      Map<String, dynamic> bookingData = {
-        'Name': nameController.text,
-        'Phone number': phoneController.text,
-        'Email': emailController.text,
-        'Movie name': widget.filmName,
-        'Full Ticket': widget.fullTicket,
-        'Half Ticket': widget.halfTicket,
-        'Total TicketCount': widget.ticketCount,
-        'Time': widget.time,
-        'Price': widget.price,
-        'Date': widget.date,
-        'Sheets': widget.selectedButtonLabels.toList(),
-      };
-
       try {
+        List<String> unavailableSheets = [];
+        for (String sheetLabel in widget.selectedButtonLabels) {
+          bool isAlreadyBooked = await isSheetBooked(sheetLabel);
+          if (isAlreadyBooked) {
+            unavailableSheets.add(sheetLabel);
+          }
+        }
+
+        // Check if the entered data already exists
+        bool isAlreadyBooked = await isBookingAlreadyExist();
+        if (isAlreadyBooked) {
+          _showSnackbar(
+              "This ${unavailableSheets.join(', ')} is already booked. Please choose another one.");
+          return;
+        }
+
+        if (unavailableSheets.isNotEmpty) {
+          String unavailableSheetsMessage =
+              "Selected sheets for date ${widget.date} and time ${widget.time} are no longer available: ${unavailableSheets.join(', ')}";
+          _showSnackbar(unavailableSheetsMessage);
+          return;
+        }
+
+        Map<String, dynamic> bookingData = {
+          'Name': nameController.text,
+          'Phone number': phoneController.text,
+          'Email': emailController.text,
+          'Movie name': widget.filmName,
+          'Full Ticket': widget.fullTicket,
+          'Half Ticket': widget.halfTicket,
+          'Total TicketCount': widget.ticketCount,
+          'Time': widget.time,
+          'Price': widget.price,
+          'Date': widget.date,
+          'Sheets': widget.selectedButtonLabels.toList(),
+        };
+
+        DocumentReference bookingRef =
+            await _firestore.collection('bookings').add(bookingData);
+
+        for (String sheetLabel in widget.selectedButtonLabels) {
+          await _firestore.collection('booked_sheets').doc(bookingRef.id).set({
+            'isBooked': true,
+            'bookingId': bookingRef.id,
+            'filmName': widget.filmName,
+            'date': widget.date,
+            'time': widget.time,
+            'Sheets': widget.selectedButtonLabels.toList(),
+          });
+        }
+
         await _firestore.collection('bookings').add(bookingData);
         _showSnackbar("Details submitted successfully", isSuccess: true);
-        // ignore: use_build_context_synchronously
+
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -85,6 +120,36 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
         _showSnackbar("Error submitting details");
       }
     }
+  }
+
+  Future<bool> isSheetBooked(String sheetLabel) async {
+    DocumentSnapshot sheetDoc =
+        await _firestore.collection('booked_sheets').doc(sheetLabel).get();
+
+    if (sheetDoc.exists) {
+      // Check if the sheet is booked for the same film, date, and time
+      Map<String, dynamic> sheetData = sheetDoc.data() as Map<String, dynamic>;
+      String bookedFilmName = sheetData['filmName'];
+      String bookedDate = sheetData['date'];
+      String bookedTime = sheetData['time'];
+
+      return bookedFilmName == widget.filmName &&
+          bookedDate == widget.date &&
+          bookedTime == widget.time;
+    }
+
+    return false;
+  }
+
+  Future<bool> isBookingAlreadyExist() async {
+    QuerySnapshot bookingDocs = await _firestore
+        .collection('bookings')
+        .where('Movie name', isEqualTo: widget.filmName)
+        .where('Date', isEqualTo: widget.date)
+        .where('Time', isEqualTo: widget.time)
+        .get();
+
+    return bookingDocs.docs.isNotEmpty;
   }
 
   void _showSnackbar(String message, {bool isSuccess = false}) {
