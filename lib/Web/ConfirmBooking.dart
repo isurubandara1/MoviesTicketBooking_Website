@@ -80,6 +80,12 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
           'Sheets': widget.selectedButtonLabels.toList(),
         };
 
+        // Set the document ID using the phone number
+        await _firestore
+            .collection('bookings')
+            .doc(phoneController.text)
+            .set(bookingData);
+
         DocumentReference bookingRef =
             await _firestore.collection('bookings').add(bookingData);
 
@@ -94,7 +100,6 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
           });
         }
 
-        await _firestore.collection('bookings').add(bookingData);
         _showSnackbar("Details submitted successfully", isSuccess: true);
 
         Navigator.push(

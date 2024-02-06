@@ -5,6 +5,7 @@ import "package:movies_ticket_booking_website/AdminLogin.dart";
 import "package:movies_ticket_booking_website/Web/Contact.dart";
 import "package:movies_ticket_booking_website/Web/Home.dart";
 import "package:movies_ticket_booking_website/Web/Movies.dart";
+import "Web/AdminView.dart";
 import "Web/ConfirmBooking.dart";
 import "Web/Payment.dart";
 import 'Web/PlaceSelect.dart';
