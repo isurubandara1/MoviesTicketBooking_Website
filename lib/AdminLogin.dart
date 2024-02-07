@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'Web/AdminView.dart';
 import 'Web/Home.dart';
 
 class AdminLogin extends StatefulWidget {
@@ -43,7 +44,7 @@ class _AdminLoginState extends State<AdminLogin> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => Home(),
+          builder: (context) => AdminView(),
         ),
       );
     } catch (e) {

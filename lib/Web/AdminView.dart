@@ -40,7 +40,12 @@ class _AdminViewState extends State<AdminView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin View'),
+        title: Text(
+          'BOOKING DETAILS',
+          style: TextStyle(
+              fontSize: 27, fontWeight: FontWeight.bold, color: Colors.brown),
+        ),
+        centerTitle: true,
       ),
       body: Column(
         children: [
@@ -121,19 +126,34 @@ class _AdminViewState extends State<AdminView> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Details for Document ID: $selectedDocument'),
+                Center(
+                  child: Text(
+                    'Details for Document ID: $selectedDocument',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blue,
+                    ),
+                  ),
+                ),
                 SizedBox(height: 10),
-                _buildDetailRow('Name', data['Name']),
-                _buildDetailRow('Email', data['Email']),
-                _buildDetailRow('Phone Number', data['Phone number']),
-                _buildDetailRow('Movie Name', data['Movie name']),
-                _buildDetailRow('Sheets', data['Sheets'].join(', ')),
-                _buildDetailRow('Date', data['Date']),
-                _buildDetailRow('Time', data['Time']),
-                _buildDetailRow('Full Ticket', data['Full Ticket'].toString()),
-                _buildDetailRow('Half Ticket', data['Half Ticket'].toString()),
+                _buildDetailRow('Name', data['Name'], resizeLabel: true),
+                _buildDetailRow('Email', data['Email'], resizeLabel: true),
+                _buildDetailRow('Phone Number', data['Phone number'],
+                    resizeLabel: true),
+                _buildDetailRow('Movie Name', data['Movie name'],
+                    resizeLabel: true),
+                _buildDetailRow('Sheets', data['Sheets'].join(', '),
+                    resizeLabel: true),
+                _buildDetailRow('Date', data['Date'], resizeLabel: true),
+                _buildDetailRow('Time', data['Time'], resizeLabel: true),
+                _buildDetailRow('Full Ticket', data['Full Ticket'].toString(),
+                    resizeLabel: true),
+                _buildDetailRow('Half Ticket', data['Half Ticket'].toString(),
+                    resizeLabel: true),
                 _buildDetailRow(
-                    'Total Tickets', data['Total TicketCount'].toString()),
+                    'Total Tickets', data['Total TicketCount'].toString(),
+                    resizeLabel: true),
               ],
             ),
           );
@@ -148,10 +168,29 @@ class _AdminViewState extends State<AdminView> {
     );
   }
 
-  Widget _buildDetailRow(String label, String value) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 5),
-      child: Text('$label: $value'),
+  Widget _buildDetailRow(String label, String value,
+      {bool resizeLabel = false}) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 200, right: 200),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '$label:',
+              style: TextStyle(
+                fontSize: resizeLabel ? 20 : 20,
+                //fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
+            ),
+            Text(
+              value,
+              style: TextStyle(fontSize: 18, color: Colors.black),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
