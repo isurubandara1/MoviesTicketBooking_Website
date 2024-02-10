@@ -31,8 +31,19 @@ class _AdminViewState extends State<AdminView> {
         filteredDocumentIds = List.from(documentIds);
       });
     } catch (error) {
-      // Handle errors while fetching document IDs
       print('Error fetching document IDs: $error');
+    }
+  }
+
+  void _onDeletePressed(String documentId) async {
+    try {
+      await _firestore.collection('bookings').doc(documentId).delete();
+      _fetchDocumentIds();
+      setState(() {
+        selectedDocument = null;
+      });
+    } catch (error) {
+      print('Error deleting document: $error');
     }
   }
 
@@ -43,7 +54,10 @@ class _AdminViewState extends State<AdminView> {
         title: Text(
           'BOOKING DETAILS',
           style: TextStyle(
-              fontSize: 27, fontWeight: FontWeight.bold, color: Colors.brown),
+            fontSize: 29,
+            fontWeight: FontWeight.bold,
+            color: Colors.brown,
+          ),
         ),
         centerTitle: true,
       ),
@@ -70,7 +84,26 @@ class _AdminViewState extends State<AdminView> {
               itemBuilder: (context, index) {
                 String documentId = filteredDocumentIds[index];
                 return ListTile(
-                  title: Text(documentId),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(documentId),
+                      ElevatedButton(
+                        onPressed: () {
+                          _onDeletePressed(documentId);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.red,
+                        ),
+                        child: Text(
+                          'Delete',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                   onTap: () {
                     _searchController.text = documentId;
                     _onSearchChanged(documentId);
@@ -117,7 +150,6 @@ class _AdminViewState extends State<AdminView> {
             throw Exception('Document not found');
           }
 
-          // Extract data from the document
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
 
@@ -138,19 +170,28 @@ class _AdminViewState extends State<AdminView> {
                 ),
                 SizedBox(height: 10),
                 _buildDetailRow('Name', data['Name'], resizeLabel: true),
+                SizedBox(height: 10),
                 _buildDetailRow('Email', data['Email'], resizeLabel: true),
+                SizedBox(height: 10),
                 _buildDetailRow('Phone Number', data['Phone number'],
                     resizeLabel: true),
+                SizedBox(height: 10),
                 _buildDetailRow('Movie Name', data['Movie name'],
                     resizeLabel: true),
+                SizedBox(height: 10),
                 _buildDetailRow('Sheets', data['Sheets'].join(', '),
                     resizeLabel: true),
+                SizedBox(height: 10),
                 _buildDetailRow('Date', data['Date'], resizeLabel: true),
+                SizedBox(height: 10),
                 _buildDetailRow('Time', data['Time'], resizeLabel: true),
+                SizedBox(height: 10),
                 _buildDetailRow('Full Ticket', data['Full Ticket'].toString(),
                     resizeLabel: true),
+                SizedBox(height: 10),
                 _buildDetailRow('Half Ticket', data['Half Ticket'].toString(),
                     resizeLabel: true),
+                SizedBox(height: 10),
                 _buildDetailRow(
                     'Total Tickets', data['Total TicketCount'].toString(),
                     resizeLabel: true),
@@ -158,7 +199,6 @@ class _AdminViewState extends State<AdminView> {
             ),
           );
         } catch (error) {
-          // Handle errors in fetching document details
           print('Error building document details: $error');
           return Center(
             child: Text('Error fetching document details'),
@@ -180,13 +220,12 @@ class _AdminViewState extends State<AdminView> {
               '$label:',
               style: TextStyle(
                 fontSize: resizeLabel ? 20 : 20,
-                //fontWeight: FontWeight.bold,
                 color: Colors.blue,
               ),
             ),
             Text(
               value,
-              style: TextStyle(fontSize: 18, color: Colors.black),
+              style: TextStyle(fontSize: 18, color: Colors.blue),
             ),
           ],
         ),

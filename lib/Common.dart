@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
-import "package:movies_ticket_booking_website/Web/Contact.dart";
-import "package:movies_ticket_booking_website/Web/Home.dart";
-import "package:movies_ticket_booking_website/Web/Movies.dart";
-import "package:movies_ticket_booking_website/Web/ShowTimes.dart";
+import 'package:movies_ticket_booking_website/UserWeb/Contact.dart';
+import 'package:movies_ticket_booking_website/UserWeb/Home.dart';
+import 'package:movies_ticket_booking_website/UserWeb/Movies.dart';
+import 'package:movies_ticket_booking_website/UserWeb/ShowTimes.dart';
 
-import "Web/ViewDetails.dart";
+import 'UserWeb/ViewDetails.dart';
 
 Widget Navbar(BuildContext context) {
   return Container(

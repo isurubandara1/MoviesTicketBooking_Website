@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_ticket_booking_website/Web/PlaceSelect.dart';
+import 'package:movies_ticket_booking_website/UserWeb/PlaceSelect.dart';
 import '../Common.dart';
 
 class ShowTimes extends StatefulWidget {

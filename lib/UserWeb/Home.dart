@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_ticket_booking_website/AdminLogin.dart';
-import "../Common.dart";
+import '../Common.dart';
 import 'dart:async';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
@@ -192,12 +192,12 @@ class CinemaBanner extends StatelessWidget {
                   height: 500,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 170),
+                  padding: const EdgeInsets.only(left: 35),
                   child: Text(
                     "Sinexpo Cinema in Kurunegala is one of the top-end movie cinemas operated by EAP Films and Theaters outside Colombo. It is one of the most sought-after cinemas by patrons living outside Colombo.",
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 13.5,
+                      fontSize: 15.5,
                     ),
                   ),
                 )

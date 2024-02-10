@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:movies_ticket_booking_website/Common.dart';
-import 'package:movies_ticket_booking_website/Web/Downlod.dart';
-import 'package:movies_ticket_booking_website/Web/Home.dart';
+import 'package:movies_ticket_booking_website/UserWeb/Downlod.dart';
+import 'package:movies_ticket_booking_website/UserWeb/Home.dart';
 
 class ConfirmBooking extends StatefulWidget {
   final String filmName;
@@ -34,12 +34,14 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController idController = TextEditingController();
   bool paymentMade = false;
 
   Future<void> _submitDetails() async {
     if (nameController.text.isEmpty ||
         phoneController.text.isEmpty ||
-        emailController.text.isEmpty) {
+        emailController.text.isEmpty ||
+        idController.text.isEmpty) {
       _showSnackbar("Fill all the text fields");
     } else {
       try {
@@ -70,6 +72,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
           'Name': nameController.text,
           'Phone number': phoneController.text,
           'Email': emailController.text,
+          'Id number': idController.text,
           'Movie name': widget.filmName,
           'Full Ticket': widget.fullTicket,
           'Half Ticket': widget.halfTicket,
@@ -80,19 +83,18 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
           'Sheets': widget.selectedButtonLabels.toList(),
         };
 
-        // Set the document ID using the phone number
         await _firestore
             .collection('bookings')
-            .doc(phoneController.text)
-            .set(bookingData);
-
-        DocumentReference bookingRef =
-            await _firestore.collection('bookings').add(bookingData);
+            .doc(idController.text)
+            .set(bookingData, SetOptions(merge: true));
 
         for (String sheetLabel in widget.selectedButtonLabels) {
-          await _firestore.collection('booked_sheets').doc(bookingRef.id).set({
+          await _firestore
+              .collection('booked_sheets')
+              .doc(idController.text)
+              .set({
             'isBooked': true,
-            'bookingId': bookingRef.id,
+            'bookingId': idController.text,
             'filmName': widget.filmName,
             'date': widget.date,
             'time': widget.time,
@@ -121,6 +123,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
         nameController.clear();
         phoneController.clear();
         emailController.clear();
+        idController.clear();
       } catch (error) {
         _showSnackbar("Error submitting details");
       }
@@ -152,6 +155,7 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
         .where('Movie name', isEqualTo: widget.filmName)
         .where('Date', isEqualTo: widget.date)
         .where('Time', isEqualTo: widget.time)
+        .where('Sheets', isEqualTo: widget.selectedButtonLabels.toList())
         .get();
 
     return bookingDocs.docs.isNotEmpty;
@@ -219,6 +223,18 @@ class _ConfirmBookingState extends State<ConfirmBooking> {
                               border: OutlineInputBorder(),
                               labelText: 'Email',
                               hintText: 'example@gmail.com',
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 50),
+                          child: TextField(
+                            controller: idController,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: 'ID number',
+                              hintText: '19995423169V',
                             ),
                           ),
                         ),

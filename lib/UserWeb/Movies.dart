@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import 'package:movies_ticket_booking_website/Web/ShowTimes.dart';
+import 'package:movies_ticket_booking_website/UserWeb/ShowTimes.dart';
 import '../Common.dart';
 
 class Movies extends StatelessWidget {
