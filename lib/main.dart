@@ -6,6 +6,7 @@ import 'package:movies_ticket_booking_website/UserWeb/Contact.dart';
 import 'package:movies_ticket_booking_website/UserWeb/Home.dart';
 import 'package:movies_ticket_booking_website/UserWeb/Movies.dart';
 import 'AdminView.dart';
+import 'Secret.dart';
 import 'UserWeb/ConfirmBooking.dart';
 import 'UserWeb/Payment.dart';
 import 'UserWeb/PlaceSelect.dart';
@@ -17,12 +18,12 @@ Future main() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: FirebaseOptions(
-            apiKey: "AIzaSyBSiQwylDva_xpLCsiC9fZLc9R002U1ARQ",
-            authDomain: "movietickets-3ddad.firebaseapp.com",
-            projectId: "movietickets-3ddad",
-            storageBucket: "movietickets-3ddad.appspot.com",
-            messagingSenderId: "560762092474",
-            appId: "1:560762092474:web:dce5f4891ff5433ee0bb83"));
+            apiKey: APIKEY,
+            authDomain: AUTHDOMAIN,
+            projectId: PROJECTID,
+            storageBucket: STORAGEBUCKET,
+            messagingSenderId: MESSAGINGSENDERID,
+            appId: APPID));
   }
   await Firebase.initializeApp();
   runApp(MyApp());

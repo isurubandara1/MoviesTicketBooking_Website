@@ -106,7 +106,7 @@ Widget Navbar(BuildContext context) {
             primary: Colors.pink, // Background color
             onPrimary: Colors.white, // Text color
           ),
-          child: const Text("Buy Tickets"),
+          child: const Text("Buy Tickets."),
         ),
       ],
     ),
