@@ -188,7 +188,7 @@ class _ContactState extends State<Contact> {
     };
 
     try {
-      await contactCollection.add(contactData);
+      await contactCollection.doc(phoneController.text).set(contactData);
       _clearTextFields();
       _showSnackBar('Contact details added to Firestore successfully!', true);
     } catch (error) {

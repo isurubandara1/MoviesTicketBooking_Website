@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'AdminContactView.dart';
-
-class AdminView extends StatefulWidget {
-  const AdminView({Key? key}) : super(key: key);
+class AdminContactView extends StatefulWidget {
+  const AdminContactView({Key? key}) : super(key: key);
 
   @override
-  _AdminViewState createState() => _AdminViewState();
+  _AdminContactViewState createState() => _AdminContactViewState();
 }
 
-class _AdminViewState extends State<AdminView> {
+class _AdminContactViewState extends State<AdminContactView> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   late TextEditingController _searchController = TextEditingController();
   String? selectedDocument;
   late List<String> documentIds;
   late List<String> filteredDocumentIds;
+
+  late TextEditingController nameController;
+  late TextEditingController phoneController;
+  late TextEditingController emailController;
+  late TextEditingController messagesController;
 
   @override
   void initState() {
@@ -23,11 +26,16 @@ class _AdminViewState extends State<AdminView> {
     documentIds = [];
     filteredDocumentIds = [];
     _fetchDocumentIds();
+
+    nameController = TextEditingController();
+    phoneController = TextEditingController();
+    emailController = TextEditingController();
+    messagesController = TextEditingController();
   }
 
   Future<void> _fetchDocumentIds() async {
     try {
-      QuerySnapshot snapshot = await _firestore.collection('bookings').get();
+      QuerySnapshot snapshot = await _firestore.collection('contacts').get();
       setState(() {
         documentIds = snapshot.docs.map((document) => document.id).toList();
         filteredDocumentIds = List.from(documentIds);
@@ -39,7 +47,7 @@ class _AdminViewState extends State<AdminView> {
 
   void _onDeletePressed(String documentId) async {
     try {
-      await _firestore.collection('bookings').doc(documentId).delete();
+      await _firestore.collection('contacts').doc(documentId).delete();
       _fetchDocumentIds();
       setState(() {
         selectedDocument = null;
@@ -54,7 +62,7 @@ class _AdminViewState extends State<AdminView> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'BOOKING DETAILS',
+          'CONTACT DETAILS',
           style: TextStyle(
             fontSize: 29,
             fontWeight: FontWeight.bold,
@@ -65,14 +73,6 @@ class _AdminViewState extends State<AdminView> {
       ),
       body: Column(
         children: [
-          ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AdminContactView()),
-                );
-              },
-              child: Text("press")),
           SizedBox(
             height: 10,
           ),
@@ -147,7 +147,7 @@ class _AdminViewState extends State<AdminView> {
   Widget _buildDocumentDetails() {
     return FutureBuilder<DocumentSnapshot>(
       future: selectedDocument!.isNotEmpty
-          ? _firestore.collection('bookings').doc(selectedDocument).get()
+          ? _firestore.collection('contacts').doc(selectedDocument).get()
           : null,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -182,32 +182,14 @@ class _AdminViewState extends State<AdminView> {
                   ),
                 ),
                 SizedBox(height: 10),
-                _buildDetailRow('Name', data['Name'], resizeLabel: true),
+                _buildDetailRow('Name', data['name'], resizeLabel: true),
                 SizedBox(height: 10),
-                _buildDetailRow('Email', data['Email'], resizeLabel: true),
+                _buildDetailRow('Email', data['email'], resizeLabel: true),
                 SizedBox(height: 10),
-                _buildDetailRow('Phone Number', data['Phone number'],
+                _buildDetailRow('Phone Number', data['phone'],
                     resizeLabel: true),
                 SizedBox(height: 10),
-                _buildDetailRow('Movie Name', data['Movie name'],
-                    resizeLabel: true),
-                SizedBox(height: 10),
-                _buildDetailRow('Sheets', data['Sheets'].join(', '),
-                    resizeLabel: true),
-                SizedBox(height: 10),
-                _buildDetailRow('Date', data['Date'], resizeLabel: true),
-                SizedBox(height: 10),
-                _buildDetailRow('Time', data['Time'], resizeLabel: true),
-                SizedBox(height: 10),
-                _buildDetailRow('Full Ticket', data['Full Ticket'].toString(),
-                    resizeLabel: true),
-                SizedBox(height: 10),
-                _buildDetailRow('Half Ticket', data['Half Ticket'].toString(),
-                    resizeLabel: true),
-                SizedBox(height: 10),
-                _buildDetailRow(
-                    'Total Tickets', data['Total TicketCount'].toString(),
-                    resizeLabel: true),
+                _buildDetailRow('Messages', data['message'], resizeLabel: true),
               ],
             ),
           );
@@ -225,7 +207,7 @@ class _AdminViewState extends State<AdminView> {
       {bool resizeLabel = false}) {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.only(left: 200, right: 200),
+        padding: const EdgeInsets.only(left: 300, right: 300),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -233,12 +215,12 @@ class _AdminViewState extends State<AdminView> {
               '$label:',
               style: TextStyle(
                 fontSize: resizeLabel ? 20 : 20,
-                color: Colors.blue,
+                color: Colors.black,
               ),
             ),
             Text(
               value,
-              style: TextStyle(fontSize: 18, color: Colors.blue),
+              style: TextStyle(fontSize: 15, color: Colors.black54),
             ),
           ],
         ),
