@@ -53,29 +53,39 @@ class _AdminViewState extends State<AdminView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'BOOKING DETAILS',
-          style: TextStyle(
-            fontSize: 29,
-            fontWeight: FontWeight.bold,
-            color: Colors.brown,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          ElevatedButton(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'BOOKING DETAILS',
+              style: TextStyle(
+                fontSize: 29,
+                fontWeight: FontWeight.bold,
+                color: Colors.brown,
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => AdminContactView()),
                 );
               },
-              child: Text("press")),
-          SizedBox(
-            height: 10,
-          ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green, // Background color of the button
+                onPrimary: Colors.white, // Text color
+              ),
+              child: Text("View Contacts details"),
+            )
+          ],
+        ),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
